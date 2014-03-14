@@ -13,6 +13,7 @@
             <th>Created At</th>
             <th>Published Date</th>
             <th>Status</th>
+            <th colspan="2">Action</th>
         </tr>
     </thead>
 

@@ -25,6 +25,7 @@ class PostController extends \BaseController {
      */
     public function create() {
         //
+        return View::make('posts.create');
     }
 
     /**
@@ -34,6 +35,8 @@ class PostController extends \BaseController {
      */
     public function store() {
         //
+        $input = Input::all();
+        var_dump($input);
     }
 
     /**
@@ -67,6 +70,23 @@ class PostController extends \BaseController {
      */
     public function update($id) {
         //
+        $input = Input::all();
+        $tags = explode(",", $input['tags']);
+        $destinationPath = public_path() . '/assets/image';
+        if (Input::hasFile('gambar')) {
+            Input::file('gambar')->move($destinationPath);
+            $input['gambar'] = Input::file('gambar')->getClientOriginalName();
+        }
+        $artikel = Artikel::find($id);
+        $update = $artikel->update($input);
+        if ($update) {
+            $deltags = $artikel->tags()->delete();
+            foreach ($tags as $t) {
+                $new_tags = new Tags(array('nama' => $t, 'slug' => $t));
+                $artikel->tags()->save($new_tags);
+            }
+        }
+        return Redirect::route('artikel.index');
     }
 
     /**

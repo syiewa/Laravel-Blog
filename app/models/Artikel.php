@@ -8,7 +8,8 @@ class Artikel extends Eloquent {
      * @var string
      */
     protected $table = 'artikel';
-
+    protected $fillable = array('judul', 'isi', 'status','gambar');
+    public $timestamps = false;
     /**
      * Get the unique identifier for the user.
      *

@@ -9,6 +9,8 @@ class Tags extends Eloquent {
      */
     protected $table = 'tags';
     protected $primaryKey = 'tag_id';
+    protected $fillable = array('nama','slug');
+    public $timestamps = false;
 
     /**
      * Get the unique identifier for the user.
