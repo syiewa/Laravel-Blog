@@ -9,10 +9,9 @@ class UsersController extends \BaseController {
      */
     public function index() {
         //
-        $telo = Sentry::findAllUsers();
-        var_dump($telo);
-        $users = User::all();
-        return View::make('users.index', compact('users'));
+        $this->data['users'] = Sentry::findAllUsers();
+        $this->data['status'] = User::$status;
+        return View::make('users.index', $this->data);
     }
 
     /**
@@ -22,6 +21,14 @@ class UsersController extends \BaseController {
      */
     public function create() {
         //
+        $groups = Sentry::findAllGroups();
+        $this->data['groups'] = array();
+        foreach ($groups as $gr) {
+            $this->data['groups'] = array(
+                $gr->id => $gr->name,
+            );
+        }
+        return View::make('users.create', $this->data);
     }
 
     /**
@@ -31,6 +38,19 @@ class UsersController extends \BaseController {
      */
     public function store() {
         //
+        $input = Input::except('group', 'password_confirmation');
+        $validation = Validator::make(Input::except('group'), User::$rules);
+        if ($validation->passes()) {
+            $user = Sentry::createUser($input);
+            if ($user) {
+                $adminGroup = Sentry::findGroupById(Input::get('group'));
+                $user->addGroup($adminGroup);
+            }
+            return View::make('users.create', $this->data);
+        }
+        return Redirect::route('users.create')
+                        ->withInput()
+                        ->withErrors($validation);
     }
 
     /**
@@ -51,7 +71,7 @@ class UsersController extends \BaseController {
      */
     public function edit($id) {
         //
-        $user = User::find($id);
+        $user = Sentry::findUserById($id);
         if (is_null($user)) {
             return Redirect::route('users.index');
         }
