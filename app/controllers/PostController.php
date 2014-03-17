@@ -35,8 +35,31 @@ class PostController extends \BaseController {
      */
     public function store() {
         //
-        $input = Input::all();
-        var_dump($input);
+        $input = Input::except('tags');
+        $tags = Input::only('tags');
+        $artikel = new Artikel;
+        $artikel->judul = $input['judul'];
+        $artikel->isi = $input['isi'];
+        $artikel->pubdate = date('Y-m-d h:i:s', strtotime($input['pubdate']));
+        $artikel->status = $input['status'];
+        $artikel->tgl = date('Y-m-d h:i:s');
+        if (Input::hasFile('gambar')) {
+            Input::file('gambar')->move($destinationPath);
+            $input['gambar'] = Input::file('gambar')->getClientOriginalName();
+        }
+        $validation = Validator::make($input, Artikel::$rules);
+        if ($validation->passes()) {
+            if ($artikel->save($input)) {
+                foreach (explode(",", $tags['tags']) as $t) {
+                    $new_tags = new Tags(array('nama' => $t, 'slug' => $t));
+                    Artikel::find($artikel->id)->tags()->save($new_tags);
+                }
+            }
+            return Redirect::route('artikel.index');
+        }
+        return Redirect::route('artikel.create')
+                        ->withInput()
+                        ->withErrors($validation);
     }
 
     /**
@@ -78,15 +101,21 @@ class PostController extends \BaseController {
             $input['gambar'] = Input::file('gambar')->getClientOriginalName();
         }
         $artikel = Artikel::find($id);
-        $update = $artikel->update($input);
-        if ($update) {
-            $deltags = $artikel->tags()->delete();
-            foreach ($tags as $t) {
-                $new_tags = new Tags(array('nama' => $t, 'slug' => $t));
-                $artikel->tags()->save($new_tags);
+        $validation = Validator::make($input, Artikel::$rules);
+        if ($validation->passes()) {
+            $update = $artikel->update($input);
+            if ($update) {
+                $deltags = $artikel->tags()->delete();
+                foreach ($tags as $t) {
+                    $new_tags = new Tags(array('nama' => $t, 'slug' => $t));
+                    $artikel->tags()->save($new_tags);
+                }
             }
+            return Redirect::route('artikel.index');
         }
-        return Redirect::route('artikel.index');
+        return Redirect::route('artikel.edit', $id)
+                        ->withInput()
+                        ->withErrors($validation);
     }
 
     /**
@@ -97,6 +126,11 @@ class PostController extends \BaseController {
      */
     public function destroy($id) {
         //
+        $artikel = Artikel::find($id);
+        if($artikel->delete()){
+            $artikel->tags()->delete();
+        }
+        return Redirect::route('artikel.index');
     }
 
 }

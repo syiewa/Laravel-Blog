@@ -1,9 +1,9 @@
-@extends('layouts/user')
+@extends('layouts/article')
 
 @section('main')
 
-<h1>All Artikel</h1>
-<p>{{ link_to_route('artikel.create', 'Add new user') }}</p>
+<h1>All Articles</h1>
+<p>{{ link_to_route('artikel.create', 'Add new article') }}</p>
 
 @if ($artikel->count())
 <table class="table table-striped table-bordered">

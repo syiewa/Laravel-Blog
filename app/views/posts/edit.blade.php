@@ -1,8 +1,17 @@
-@extends('layouts/user')
+@extends('layouts/article')
 
 @section('main')
 
-<h1>Edit Artikel</h1>
+<h1>Edit Article</h1>
+@if ($errors->any())
+<div class="alert alert-danger fade in">
+    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    <ul>
+        {{ implode('', $errors->all('<li class="error">:message</
+            li>')) }}
+    </ul>
+</div>
+@endif
 {{ Form::model($artikel, array('method' => 'PATCH', 'route' => 
 array('artikel.update', $artikel->id),'class' => 'form-horizontal','enctype' => "multipart/form-data")) }}
 <div class="form-group">
@@ -13,8 +22,12 @@ array('artikel.update', $artikel->id),'class' => 'form-horizontal','enctype' => 
 </div>
 <div class="form-group">
     {{ Form::label('pubdate', 'Published At',array('class' => 'col-sm-2 control-label')) }}
-    <div class="col-sm-10">
-        <p class="form-control-static">{{ date('d F Y h:i:s',strtotime($artikel->pubdate)) }}</p>
+    <div class="col-sm-3">
+        <div class='input-group date' id='datetimepicker1'>
+            {{ Form::text('pubdate',date('d-m-Y h:i:s',strtotime($artikel->pubdate)),array('class' => 'form-control')) }}
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
     </div>
 </div>
 <div class="form-group">
@@ -72,10 +85,4 @@ array('artikel.update', $artikel->id),'class' => 'form-horizontal','enctype' => 
 {{ Form::submit('Update', array('class' => 'btn btninfo')) }}
 {{ link_to_route('artikel.index', 'Cancel','', array('class' => 'btn')) }}
 {{ Form::close() }}
-@if ($errors->any())
-<ul>
-    {{ implode('', $errors->all('<li class="error">:message</
-        li>')) }}
-</ul>
-@endif
 @stop

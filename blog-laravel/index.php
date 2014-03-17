@@ -18,7 +18,7 @@
 |
 */
 
-require __DIR__.'/../laravel/bootstrap/autoload.php';
+require __DIR__.'/../telo2/bootstrap/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ require __DIR__.'/../laravel/bootstrap/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../laravel/bootstrap/start.php';
+$app = require_once __DIR__.'/../telo2/bootstrap/start.php';
 
 /*
 |--------------------------------------------------------------------------

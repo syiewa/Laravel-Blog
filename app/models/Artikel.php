@@ -8,14 +8,22 @@ class Artikel extends Eloquent {
      * @var string
      */
     protected $table = 'artikel';
-    protected $fillable = array('judul', 'isi', 'status','gambar');
+    protected $fillable = array('judul', 'isi', 'status', 'gambar', 'tgl', 'pubdate');
     public $timestamps = false;
+    public static $rules = array(
+        'judul' => 'required|min:5',
+        'isi' => 'required|min:5',
+        'pubdate' => 'required|date',
+        'gambar' => 'image'
+    );
+
     /**
      * Get the unique identifier for the user.
      *
      * @return mixed
      */
-    public function tags(){
-        return $this->hasMany('tags','post_id');
+    public function tags() {
+        return $this->hasMany('tags', 'post_id');
     }
+
 }

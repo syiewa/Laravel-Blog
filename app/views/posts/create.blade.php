@@ -1,8 +1,17 @@
-@extends('layouts/user')
+@extends('layouts/article')
 
 @section('main')
 
-<h1>Add New Artikel</h1>
+<h1>Add New Article</h1>
+@if ($errors->any())
+<div class="alert alert-danger fade in">
+    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    <ul>
+        {{ implode('', $errors->all('<li class="error">:message</
+            li>')) }}
+    </ul>
+</div>
+@endif
 {{ Form::open(array('route' => 
 'artikel.store','class' => 'form-horizontal','enctype' => "multipart/form-data")) }}
 <div class="form-group">
@@ -59,10 +68,4 @@
 {{ Form::submit('Create', array('class' => 'btn btninfo')) }}
 {{ link_to_route('artikel.index', 'Cancel','', array('class' => 'btn')) }}
 {{ Form::close() }}
-@if ($errors->any())
-<ul>
-    {{ implode('', $errors->all('<li class="error">:message</
-        li>')) }}
-</ul>
-@endif
 @stop
