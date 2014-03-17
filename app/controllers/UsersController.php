@@ -9,6 +9,8 @@ class UsersController extends \BaseController {
      */
     public function index() {
         //
+        $telo = Sentry::findAllUsers();
+        var_dump($telo);
         $users = User::all();
         return View::make('users.index', compact('users'));
     }
@@ -49,6 +51,11 @@ class UsersController extends \BaseController {
      */
     public function edit($id) {
         //
+        $user = User::find($id);
+        if (is_null($user)) {
+            return Redirect::route('users.index');
+        }
+        return View::make('users.edit', compact('user'));
     }
 
     /**
