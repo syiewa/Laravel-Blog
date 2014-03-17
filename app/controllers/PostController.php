@@ -35,6 +35,7 @@ class PostController extends \BaseController {
      */
     public function store() {
         //
+        $destinationPath = public_path() . '/assets/image';
         $input = Input::except('tags');
         $tags = Input::only('tags');
         $artikel = new Artikel;
@@ -45,7 +46,7 @@ class PostController extends \BaseController {
         $artikel->tgl = date('Y-m-d h:i:s');
         if (Input::hasFile('gambar')) {
             Input::file('gambar')->move($destinationPath);
-            $input['gambar'] = Input::file('gambar')->getClientOriginalName();
+            $artikel->gambar = Input::file('gambar')->getClientOriginalName();
         }
         $validation = Validator::make($input, Artikel::$rules);
         if ($validation->passes()) {

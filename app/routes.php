@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', 'PostController@index');
 Route::model('Artikel', 'artikel');
 Route::resource('users','UsersController');
 Route::resource('artikel','PostController');
