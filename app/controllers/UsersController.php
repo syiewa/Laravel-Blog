@@ -1,4 +1,5 @@
 <?php
+
 class UsersController extends \BaseController {
 
     /**
@@ -15,9 +16,48 @@ class UsersController extends \BaseController {
 
     public function login() {
         if (Sentry::check()) {
-            return Redirect::to('artikel');
+            return Redirect::to('admin/artikel');
         }
         return View::make('users.login');
+    }
+
+    public function logout() {
+        Sentry::logout();
+        return Redirect::to('/login');
+    }
+
+    public function doLogin() {
+        $rules = array(
+            'email' => 'required|email',
+            'password' => 'required',
+        );
+        $input = Input::get();
+        $validation = Validator::make($input, $rules);
+
+        if ($validation->fails()) {
+            return Redirect::to('login')->withInput()
+                            ->withErrors($validation);
+        }
+        try {
+            $credentials = array('email' => Input::get('email'), 'password' => Input::get('password'));
+            if (Input::get('remember')) {
+                if (Sentry::authenticateAndRemember($credentials))
+                    return Redirect::to('admin/artikel');
+            } else {
+                if (Sentry::authenticate($credentials, false))
+                    return Redirect::to('admin/artikel');
+            }
+        } catch (Cartalyst\Sentry\Users\WrongPasswordException $e) {
+            return Redirect::to('login')->with("message","Wrong Password");
+        } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+           return Redirect::to('login')->with("message","User Not Found");
+        } catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {
+            return Redirect::to('login')->with("message","User Not Activated");
+        } catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e) {
+            return Redirect::to('login')->with("message","Account Suspended");
+        } catch (Cartalyst\Sentry\Throttling\UserBannedException $e) {
+            return Redirect::to('login')->with("message","Account Banned");
+        }
     }
 
     /**
@@ -27,9 +67,6 @@ class UsersController extends \BaseController {
      */
     public function create() {
         //
-        if (!Sentry::check()) {
-            return Redirect::to('login');
-        }
         $groups = Sentry::findAllGroups();
         $this->data['groups'] = array();
         foreach ($groups as $gr) {
@@ -88,7 +125,7 @@ class UsersController extends \BaseController {
         //
         $user = Sentry::getUser();
         if (is_null($user)) {
-            return Redirect::route('admin.users.index');
+            return Redirect::route('users.index');
         }
         return View::make('users.edit', compact('user'));
     }

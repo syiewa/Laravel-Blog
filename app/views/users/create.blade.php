@@ -13,7 +13,7 @@
 </div>
 @endif
 {{ Form::open(array('route' => 
-'users.store','class' => 'form-horizontal','enctype' => "multipart/form-data")) }}
+'admin.users.store','class' => 'form-horizontal','enctype' => "multipart/form-data")) }}
 <div class="form-group">
     {{ Form::label('email', 'Email',array('class' => 'col-sm-2 control-label')) }}
     <div class="col-sm-5">
@@ -41,10 +41,10 @@
 <div class="form-group">
     {{ Form::label('activate', 'Status',array('class' => 'col-sm-2 control-label')) }}
     <div class="col-sm-5">
-        {{ Form::select('activated',array('true' => 'Active','false' => 'inactive'),null,array('class' => 'form-control')) }}
+        {{ Form::select('activated',array(1 => 'Active',0 => 'inactive'),null,array('class' => 'form-control')) }}
     </div>
 </div>
 {{ Form::submit('Create', array('class' => 'btn btninfo')) }}
-{{ link_to_route('artikel.index', 'Cancel','', array('class' => 'btn')) }}
+{{ link_to_route('admin.artikel.index', 'Cancel','', array('class' => 'btn')) }}
 {{ Form::close() }}
 @stop

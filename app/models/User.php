@@ -17,8 +17,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         'password_confirmation' => 'required'
     );
     public static $status = array(
-        0 => 'Active',
-        1 => 'inActive'
+        1 => 'Active',
+        0 => 'inActive'
     );
 
     /**

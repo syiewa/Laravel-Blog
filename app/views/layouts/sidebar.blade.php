@@ -20,6 +20,9 @@
             <li> <a href="{{ url('admin/users/create') }}"><i class="glyphicon glyphicon-user"></i> Create Users</a></li>
         </ul>
     </li>
+    <li class="nav-header list-group-item"> 
+        <h5><a href="{{ url('logout') }}"> Logout</a></h5>
+    </li>
 </ul>
 
 <hr>
