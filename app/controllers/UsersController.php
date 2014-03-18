@@ -40,13 +40,19 @@ class UsersController extends \BaseController {
         //
         $input = Input::except('group', 'password_confirmation');
         $validation = Validator::make(Input::except('group'), User::$rules);
+        if (Input::get('group') == '1') {
+            $input['permissions'] = array(
+                'admin' => 1,
+                'user' => 1
+            );
+        } 
         if ($validation->passes()) {
             $user = Sentry::createUser($input);
             if ($user) {
                 $adminGroup = Sentry::findGroupById(Input::get('group'));
                 $user->addGroup($adminGroup);
             }
-            return View::make('users.create', $this->data);
+            return Redirect::route('users.create');
         }
         return Redirect::route('users.create')
                         ->withInput()
