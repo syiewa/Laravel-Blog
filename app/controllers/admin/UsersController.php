@@ -1,4 +1,5 @@
 <?php
+
 class UsersController extends \BaseController {
 
     /**
@@ -61,9 +62,9 @@ class UsersController extends \BaseController {
                 $adminGroup = Sentry::findGroupById(Input::get('group'));
                 $user->addGroup($adminGroup);
             }
-            return Redirect::route('admin.users.create');
+            return Redirect::route('users.create');
         }
-        return Redirect::route('admin.users.create')
+        return Redirect::route('users.create')
                         ->withInput()
                         ->withErrors($validation);
     }
@@ -88,7 +89,7 @@ class UsersController extends \BaseController {
         //
         $user = Sentry::getUser();
         if (is_null($user)) {
-            return Redirect::route('admin.users.index');
+            return Redirect::route('users.index');
         }
         return View::make('users.edit', compact('user'));
     }

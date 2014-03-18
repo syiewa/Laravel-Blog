@@ -7,13 +7,11 @@
 <div class="alert alert-danger fade in">
     <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
     <ul>
-        {{ implode('', $errors->all('<li class="error">:message</
-            li>')) }}
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
     </ul>
 </div>
 @endif
-{{ Form::open(array('route' => 
-'artikel.store','class' => 'form-horizontal','enctype' => "multipart/form-data")) }}
+{{ Form::open(array('route' => 'admin.artikel.store','class' => 'form-horizontal','enctype' => "multipart/form-data")) }}
 <div class="form-group">
     {{ Form::label('tgl', 'Created at',array('class' => 'col-sm-2 control-label')) }}
     <div class="col-sm-10">
@@ -66,6 +64,6 @@
     </div>
 </div>
 {{ Form::submit('Create', array('class' => 'btn btninfo')) }}
-{{ link_to_route('artikel.index', 'Cancel','', array('class' => 'btn')) }}
+{{ link_to_route('admin.artikel.index', 'Cancel','', array('class' => 'btn')) }}
 {{ Form::close() }}
 @stop

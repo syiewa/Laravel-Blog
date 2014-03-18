@@ -4,7 +4,7 @@
 
 <h1>All Users</h1>
 
-<p>{{ link_to_route('users.create', 'Add new user') }}</p>
+<p>{{ link_to_route('admin.users.create', 'Add new user') }}</p>
 
 @if (!empty($users))
 <table class="table table-striped table-bordered">
@@ -27,10 +27,10 @@
                 @endforeach
             </td>
             <td>{{ $status[$user->activated] }}</td>
-            <td>{{ link_to_route('users.edit', 'Edit', array($user->id), array('class' => 'btn btn-info')) }}</td>
+            <td>{{ link_to_route('admin.users.edit', 'Edit', array($user->id), array('class' => 'btn btn-info')) }}</td>
             <td>
                 {{ Form::open(array('method'
-=> 'DELETE', 'route' => array('users.destroy', $user->id))) }}
+=> 'DELETE', 'route' => array('admin.users.destroy', $user->id))) }}
                 {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                 {{ Form::close() }}
             </td>

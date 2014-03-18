@@ -13,7 +13,7 @@
 </div>
 @endif
 {{ Form::model($artikel, array('method' => 'PATCH', 'route' => 
-array('artikel.update', $artikel->id),'class' => 'form-horizontal','enctype' => "multipart/form-data")) }}
+array('admin.artikel.update', $artikel->id),'class' => 'form-horizontal','enctype' => "multipart/form-data")) }}
 <div class="form-group">
     {{ Form::label('tgl', 'Created at',array('class' => 'col-sm-2 control-label')) }}
     <div class="col-sm-10">
@@ -83,6 +83,6 @@ array('artikel.update', $artikel->id),'class' => 'form-horizontal','enctype' => 
     </div>
 </div>
 {{ Form::submit('Update', array('class' => 'btn btninfo')) }}
-{{ link_to_route('artikel.index', 'Cancel','', array('class' => 'btn')) }}
+{{ link_to_route('admin.artikel.index', 'Cancel','', array('class' => 'btn')) }}
 {{ Form::close() }}
 @stop

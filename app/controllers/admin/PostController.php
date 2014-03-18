@@ -1,4 +1,5 @@
 <?php
+
 class PostController extends \BaseController {
 
     /**
@@ -55,9 +56,9 @@ class PostController extends \BaseController {
                     Artikel::find($artikel->id)->tags()->save($new_tags);
                 }
             }
-            return Redirect::route('admin.artikel.index');
+            return Redirect::route('artikel.index');
         }
-        return Redirect::route('admin.artikel.create')
+        return Redirect::route('artikel.create')
                         ->withInput()
                         ->withErrors($validation);
     }
@@ -112,9 +113,9 @@ class PostController extends \BaseController {
                     $artikel->tags()->save($new_tags);
                 }
             }
-            return Redirect::route('admin.artikel.index');
+            return Redirect::route('artikel.index');
         }
-        return Redirect::route('admin.artikel.edit', $id)
+        return Redirect::route('artikel.edit', $id)
                         ->withInput()
                         ->withErrors($validation);
     }
@@ -131,7 +132,7 @@ class PostController extends \BaseController {
         if($artikel->delete()){
             $artikel->tags()->delete();
         }
-        return Redirect::route('admin.artikel.index');
+        return Redirect::route('artikel.index');
     }
 
 }

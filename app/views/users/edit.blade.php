@@ -2,7 +2,7 @@
 @section('main')
 <h1>Edit User</h1>
 {{ Form::model($user, array('method' => 'PATCH', 'route' => 
-array('users.update', $user->id))) }}
+array('admin.users.update', $user->id))) }}
 <ul>
     <li>
         {{ Form::label('username', 'Username:') }}
@@ -25,10 +25,8 @@ array('users.update', $user->id))) }}
         {{ Form::text('name') }}
     </li>
     <li>
-        {{ Form::submit('Update', array('class' => 'btn btn-
-info')) }}
-        {{ link_to_route('users.show', 'Cancel', $user->id, 
-array('class' => 'btn')) }}
+        {{ Form::submit('Update', array('class' => 'btn btn-info')) }}
+        {{ link_to_route('admin.users.show', 'Cancel', $user->id, array('class' => 'btn')) }}
     </li>
 </ul>
 {{ Form::close() }}
