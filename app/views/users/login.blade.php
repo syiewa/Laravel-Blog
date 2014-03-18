@@ -54,23 +54,13 @@
                                     <input  type="password" class="form-control" name="password" placeholder="Password">
                                 </div>
                                 <span class="help-block"><?php echo $errors->first('password'); ?></span>
-
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-                            </div>
-                        </div>
-                        <div class="row omb_row-sm-offset-3">
-                            <div class="col-xs-12 col-sm-3">
                                 <label class="checkbox">
                                     <input type="checkbox" value="1" name="remember">Remember Me
                                 </label>
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
                             </div>
-                            {{ Form::close() }}
-                            <div class="col-xs-12 col-sm-3">
-                                <p class="omb_forgotPwd">
-                                    <a href="#">Forgot password?</a>
-                                </p>
-                            </div>
-                        </div>	    	
+                        </div>
+                        {{ Form::close() }}    	
                     </div>
                 </div>
             </div>

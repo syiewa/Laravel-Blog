@@ -48,15 +48,15 @@ class UsersController extends \BaseController {
                     return Redirect::to('admin/artikel');
             }
         } catch (Cartalyst\Sentry\Users\WrongPasswordException $e) {
-            return Redirect::to('login')->with("message","Wrong Password");
+            return Redirect::to('login')->with("message", "Wrong Password");
         } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
-           return Redirect::to('login')->with("message","User Not Found");
+            return Redirect::to('login')->with("message", "User Not Found");
         } catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {
-            return Redirect::to('login')->with("message","User Not Activated");
+            return Redirect::to('login')->with("message", "User Not Activated");
         } catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e) {
-            return Redirect::to('login')->with("message","Account Suspended");
+            return Redirect::to('login')->with("message", "Account Suspended");
         } catch (Cartalyst\Sentry\Throttling\UserBannedException $e) {
-            return Redirect::to('login')->with("message","Account Banned");
+            return Redirect::to('login')->with("message", "Account Banned");
         }
     }
 

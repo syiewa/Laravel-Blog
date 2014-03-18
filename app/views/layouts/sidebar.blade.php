@@ -5,7 +5,7 @@
 
 <ul class="list-group">
     <li class="nav-header list-group-item"> <a href="#" data-toggle="collapse" data-target="#Article">
-            <h5>Settings <i class="glyphicon glyphicon-chevron-down"></i></h5>
+            <h5>Articles <i class="glyphicon glyphicon-chevron-down"></i></h5>
         </a>
         <ul class="list-unstyled collapse in" id="Article">
             <li> <a href="{{ url('admin/artikel') }}"><i class="glyphicon glyphicon-home"></i> All Articles</a></li>
