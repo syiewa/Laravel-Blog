@@ -98,7 +98,7 @@ class UsersController extends \BaseController {
                 $adminGroup = Sentry::findGroupById(Input::get('group'));
                 $user->addGroup($adminGroup);
             }
-            return Redirect::route('admin.users.create');
+            return Redirect::route('admin.users.index');
         }
         return Redirect::route('admin.users.create')
                         ->withInput()
@@ -123,11 +123,18 @@ class UsersController extends \BaseController {
      */
     public function edit($id) {
         //
-        $user = Sentry::getUser();
-        if (is_null($user)) {
-            return Redirect::route('users.index');
+        $groups = Sentry::findAllGroups();
+        $this->data['groups'] = array();
+        foreach ($groups as $gr) {
+            $this->data['groups'] = array(
+                $gr->id => $gr->name,
+            );
         }
-        return View::make('users.edit', compact('user'));
+        $this->data['user'] = Sentry::findUserById($id);
+        if (is_null($this->data['user'])) {
+            return Redirect::route('admin.users.index');
+        }
+        return View::make('users.edit', $this->data);
     }
 
     /**
@@ -138,6 +145,27 @@ class UsersController extends \BaseController {
      */
     public function update($id) {
         //
+        $user = Sentry::findUserById($id);
+        $rules = array(
+            'email' => 'required|email|unique:users,email,' . $id,
+            'password' => 'confirmed|min:5',
+        );
+        $input = Input::get();
+        $validation = Validator::make($input, $rules);
+        if ($validation->passes()) {
+            $user->email = Input::get('email');
+            if (Input::get('password') != '')
+                $user->password = Input::get('password');
+            $user->activated = Input::get('activated');
+            if ($user->save()) {
+                $adminGroup = Sentry::findGroupById(Input::get('group'));
+                $user->addGroup($adminGroup);
+                return Redirect::route('admin.users.index');
+            }
+        }
+        return Redirect::route('admin.users.edit', $id)
+                        ->withInput()
+                        ->withErrors($validation);
     }
 
     /**
@@ -148,6 +176,19 @@ class UsersController extends \BaseController {
      */
     public function destroy($id) {
         //
+        try {
+            // Find the user using the user id
+            $user = Sentry::findUserById($id);
+
+            // Delete the user
+            if ($user->delete()) {
+                return Redirect::route('admin.users.index');
+            }
+        } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+            return Redirect::route('admin.users.edit', $id)
+                            ->withInput()
+                            ->withErrors('User was not found.');
+        }
     }
 
 }

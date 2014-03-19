@@ -10,6 +10,7 @@
   | and give it the Closure to execute when that URI is requested.
   |
  */
+Route::get('/', 'UsersController@login');
 Route::get('admin', 'UsersController@login');
 Route::model('Artikel', 'artikel');
 Route::group(array('prefix' => 'admin','before' => 'check'), function() {

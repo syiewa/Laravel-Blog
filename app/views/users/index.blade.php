@@ -29,9 +29,10 @@
             <td>{{ $status[$user->activated] }}</td>
             <td>{{ link_to_route('admin.users.edit', 'Edit', array($user->id), array('class' => 'btn btn-info')) }}</td>
             <td>
-                {{ Form::open(array('method'
-=> 'DELETE', 'route' => array('admin.users.destroy', $user->id))) }}
-                {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                @if ($user->id == Sentry::getUser()->id) @if ($disabled = 'disabled') @endif @else @if($disabled = '') @endif
+                @endif
+                {{ Form::open(array('method' => 'DELETE', 'route' => array('admin.users.destroy', $user->id))) }}
+                {{ Form::submit('Delete', array('class' => 'btn btn-danger',$disabled)) }}
                 {{ Form::close() }}
             </td>
         </tr>
