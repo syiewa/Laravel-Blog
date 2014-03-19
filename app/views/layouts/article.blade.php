@@ -33,7 +33,7 @@
         @include('layouts.header')
         <div class="container" id="main">
             <div class='row'>
-                <div class="col-md-3">
+                <div class="col-md-3" id="sidebar">
                     @include('layouts.sidebar')
                 </div>
                 <div class="col-md-9">

@@ -17,6 +17,7 @@ Route::group(array('prefix' => 'admin','before' => 'check'), function() {
     // main page for the admin section (app/views/admin/dashboard.blade.php)
     Route::resource('users', 'UsersController');
     Route::resource('artikel', 'PostController');
+    Route::resource('links', 'LinkController');
 });
 Route::get('login', 'UsersController@login');
 Route::post('login', array('https' => false,'before'=>'csrf','as' => 'postuserlogin', 'uses' => 'UsersController@doLogin'));
