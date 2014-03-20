@@ -37,9 +37,9 @@
                         <h3 class="omb_authTitle">Login </h3>
                         <div class="row omb_row-sm-offset-3">
                             <div class="col-xs-12 col-sm-6">	
-                                @if (Session::has('message'))
+                                @if ($errors->has('login'))
                                 <div class="alert alert-danger">
-                                    {{ Session::get('message') }}
+                                    <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>{{ $errors->first('login', ':message') }}
                                 </div>
                                 @endif
                                 {{ Form::open( array('url'=>'login','class'=>'omb_loginForm')) }}
