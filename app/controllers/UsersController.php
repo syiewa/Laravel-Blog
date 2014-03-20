@@ -7,6 +7,10 @@ class UsersController extends \BaseController {
      *
      * @return Response
      */
+    
+    public function __construct() {
+        View::share('active', 'users');
+    }
     public function index() {
         //
         $this->data['users'] = Sentry::findAllUsers();
@@ -41,22 +45,13 @@ class UsersController extends \BaseController {
         try {
             $credentials = array('email' => Input::get('email'), 'password' => Input::get('password'));
             if (Input::get('remember')) {
-                if (Sentry::authenticateAndRemember($credentials))
-                    return Redirect::to('admin/artikel');
+                Sentry::authenticate($credentials, true);
             } else {
-                if (Sentry::authenticate($credentials, false))
-                    return Redirect::to('admin/artikel');
+                Sentry::authenticate($credentials, false);
             }
-        } catch (Cartalyst\Sentry\Users\WrongPasswordException $e) {
-            return Redirect::to('login')->with("message", "Wrong Password");
-        } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
-            return Redirect::to('login')->with("message", "User Not Found");
-        } catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {
-            return Redirect::to('login')->with("message", "User Not Activated");
-        } catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e) {
-            return Redirect::to('login')->with("message", "Account Suspended");
-        } catch (Cartalyst\Sentry\Throttling\UserBannedException $e) {
-            return Redirect::to('login')->with("message", "Account Banned");
+            return Redirect::to('admin/artikel');
+        } catch (\Exception $e) {
+            return Redirect::to('login')->withErrors(array('login' => $e->getMessage()));
         }
     }
 

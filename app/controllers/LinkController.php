@@ -7,10 +7,9 @@ class LinkController extends \BaseController {
      *
      * @return Response
      */
-    public function index() {
-        //
-        $this->data['links'] = Links::all();
-        return View::make('links.index', $this->data);
+    public function __construct() {
+        parent::__construct();
+        View::share('active', 'links');
     }
 
     /**
@@ -71,6 +70,16 @@ class LinkController extends \BaseController {
      * @return Response
      */
     public function update($id) {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
         //
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 class PostController extends \BaseController {
 
     /**
@@ -10,6 +11,11 @@ class PostController extends \BaseController {
         '0' => 'inactive',
         '1' => 'active'
     );
+
+    public function __construct() {
+        parent::__construct();
+        View::share('active', 'article');
+    }
 
     public function index() {
         $this->data['stat'] = $this->stat;
@@ -128,7 +134,7 @@ class PostController extends \BaseController {
     public function destroy($id) {
         //
         $artikel = Artikel::find($id);
-        if($artikel->delete()){
+        if ($artikel->delete()) {
             $artikel->tags()->delete();
         }
         return Redirect::route('admin.artikel.index');

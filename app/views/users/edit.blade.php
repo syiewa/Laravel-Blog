@@ -41,12 +41,12 @@ array('admin.users.update', $user->id),'class' => 'form-horizontal')) }}
     {{ Form::label('activate', 'Status',array('class' => 'col-sm-2 control-label')) }}
     <div class="col-sm-5">
         @if ($user->activated) 
-        @if ($active = 1) @endif
-        @else @if ($active = 0) @endif
+        @if ($activated = 1) @endif
+        @else @if ($activated = 0) @endif
         @endif
         @if ($user->id == Sentry::getUser()->id) @if ($disabled = "disabled") @endif @else @if ($disabled = NULL) @endif
         @endif
-        {{ Form::select('activated',array(1 => 'Active',0 => 'inactive'),$active,array('class' => 'form-control',$disabled)) }}
+        {{ Form::select('activated',array(1 => 'Active',0 => 'inactive'),$activated,array('class' => 'form-control',$disabled)) }}
     </div>
 </div>
 {{ Form::submit('Update', array('class' => 'btn btninfo')) }}

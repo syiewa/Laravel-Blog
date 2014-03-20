@@ -18,6 +18,7 @@ Route::group(array('prefix' => 'admin','before' => 'check'), function() {
     Route::resource('users', 'UsersController');
     Route::resource('artikel', 'PostController');
     Route::resource('links', 'LinkController');
+    Route::resource('comments', 'CommentController');
 });
 Route::get('login', 'UsersController@login');
 Route::post('login', array('https' => false,'before'=>'csrf','as' => 'postuserlogin', 'uses' => 'UsersController@doLogin'));
