@@ -8,12 +8,7 @@ class Links extends Eloquent {
      * @var string
      */
     protected $table = 'link';
-    public static $rules = array(
-        'judul' => 'required|min:5',
-        'isi' => 'required|min:5',
-        'pubdate' => 'required|date',
-        'gambar' => 'image'
-    );
+    protected $fillable = array('judul','url','type');
 
     /**
      * Get the unique identifier for the user.

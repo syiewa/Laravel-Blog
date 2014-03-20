@@ -20,7 +20,7 @@
 </div>
 <div class="form-group">
     {{ Form::label('pubdate', 'Published At',array('class' => 'col-sm-2 control-label')) }}
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         <div class='input-group date' id='datetimepicker1'>
             <input type='text' class="form-control"  name='pubdate'/>
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
@@ -36,7 +36,7 @@
 </div>
 <div class="form-group">
     {{ Form::label('isi', 'Isi',array('class' => 'col-sm-2 control-label')) }}
-    <div class="col-sm-6">
+    <div class="col-sm-10">
         {{ Form::textarea('isi','',array('class' => 'form-control')) }}
     </div>
 </div>
