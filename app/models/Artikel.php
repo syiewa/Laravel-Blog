@@ -26,4 +26,8 @@ class Artikel extends Eloquent {
         return $this->hasMany('tags', 'post_id');
     }
 
+    public function comment() {
+        return $this->hasMany('comment', 'post_id');
+    }
+
 }
