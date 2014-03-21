@@ -7,6 +7,7 @@
         {{ HTML::style('/assets/css/bootstrap-tagsinput.css') }}
         {{ HTML::style('/assets/css/bootstrap-datetimepicker.css') }}
         {{ HTML::style('/assets/css/prettify.css') }}
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <body>
         @include('layouts.header')
         <div class="container" id="main">

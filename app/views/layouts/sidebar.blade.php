@@ -9,6 +9,7 @@
         <ul class="nav nav-pills nav-stacked collapse" id="Article">
             <li> <a href="{{ url('admin/artikel') }}"><i class="fa fa-list-alt fa-fw"></i> All Articles</a></li>
             <li> <a href="{{ url('admin/artikel/create') }}"><i class="fa fa-pencil fa-fw"></i> Create Article</a></li>
+            <li> <a href="{{ url('admin/comments') }}"><i class="fa fa-comments fa-fw"></i> Article Comments</a></li>
         </ul>
     </li>
     <li @if(isset($active) && $active=="users") class="active" @endif> <a href="#" data-toggle="collapse" data-target="#userMenu">

@@ -2,8 +2,7 @@
 
 @section('main')
 
-<h1>All Articles</h1>
-<p>{{ link_to_route('admin.artikel.create', 'Add new article') }}</p>
+<h1>All Comments</h1>
 
 @if (!empty($comments))
 <table class="table table-striped table-bordered">
@@ -19,19 +18,21 @@
     <tbody>
         @foreach ($comments as $com)
         <tr>
-            <td>{{ $com->nama }}<br />
-                {{ $com->email }}<br />
-                {{ $com->url }}<br />
+            <td>
+                <p style="font-size: 0.75em"><strong>{{ $com->nama }}</strong></p>
+                <p style="font-size: 0.55em">{{ HTML::link($com->email, $com->email) }}</p>
+                <p style="font-size: 0.55em">{{ $com->url }}</p>
             </td>
-            <td>Submitted on {{ date('d M Y h:i:s',strtotime($com->created_at)) }}
-                <p>{{ $com->komentar }}</p>
+            <td>
+                <p style="font-size: 0.55em">Submitted on {{ date('d M Y h:i:s',strtotime($com->created_at)) }}</p>
+                <p style="font-size: 0.65em">{{ $com->komentar }}</p>
             </td>
-            <td>{{ $com->artikel->judul }}</td>
-            <td>{{ link_to_route('admin.artikel.edit', 'Edit', array($com->id), array('class' => 'btn btn-info')) }}</td>
+            <td><p style="font-size: 0.65em">{{ $com->artikel->judul }}</p></td>
+            <td>{{ link_to_route('admin.artikel.edit', 'Edit', array($com->id), array('class' => 'btn btn-info btn-xs')) }}</td>
             <td>
                 {{ Form::open(array('method'
-                => 'DELETE', 'route' => array('admin.artikel.destroy', $com->id))) }}
-                {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                => 'DELETE', 'route' => array('admin.comments.destroy', $com->id))) }}
+                {{ Form::submit('Delete', array('class' => 'btn btn-danger btn-xs')) }}
                 {{ Form::close() }}
             </td>
         </tr>
