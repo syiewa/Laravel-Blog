@@ -1,6 +1,6 @@
 <?php
 
-class Comment extends Eloquent {
+class Comment extends \Kalnoy\Nestedset\Node {
 
     /**
      * The database table used by the model.
