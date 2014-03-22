@@ -84,8 +84,28 @@
                     // toggle icon
                     $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
                 });
+                $("table").on('click', '.reply', function(e) {
+                    var url = $(this).attr('href');
+                    var posts = $(this).attr('id');
+                    var id =  posts.split("-");
+                    console.log(id[0]);
+                    $('html, body').animate({
+                        scrollTop: $("#telo").offset().top
+                    }, 2000);
+                    var html = '';
+                    html += '<h3> Reply Comment </h3>';
+                    html += '<form action="' + url + '" method="POST">';
+                    html += '<input type="hidden" value="' + id[1] + '" name="post_id">';
+                    html += '<input type="hidden" value="' + id[0] + '" name="parent_id">';
+                    html += '<div class="form-group">'
+                    html += '<textarea class="form-control" name="komentar"></textarea></div>';
+                    html += '<div class="form-group">'
+                    html += '<input type="submit" value="Reply" class="btn btn-info"></div>';
+                    html += '</form>';
+                    $('#telo').html(html);
+                    e.preventDefault();
+                });
             });
-
         </script>
     </body>
 </html>

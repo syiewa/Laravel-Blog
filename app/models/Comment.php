@@ -8,6 +8,7 @@ class Comment extends \Kalnoy\Nestedset\Node {
      * @var string
      */
     protected $table = 'komentar';
+    protected $fillable = array('nama','url','email','komentar','parent_id');
 
     /**
      * Get the unique identifier for the user.

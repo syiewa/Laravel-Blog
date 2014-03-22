@@ -3,8 +3,6 @@
 @section('main')
 
 <h1>All Articles</h1>
-<p>{{ link_to_route('admin.artikel.create', 'Add new article') }}</p>
-
 @if ($artikel->count())
 <table class="table table-striped table-bordered">
     <thead>

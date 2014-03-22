@@ -76,6 +76,8 @@ class PostController extends \BaseController {
      */
     public function show($id) {
         //
+        $this->data['artikel'] = Comment::with('artikel')->where('post_id', $id)->orderBy('created_at', 'asc')->select('komentar.*')->withDepth()->get();
+        return View::make('posts.show', $this->data);
     }
 
     /**

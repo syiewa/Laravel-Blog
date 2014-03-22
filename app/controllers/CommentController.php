@@ -9,7 +9,7 @@ class CommentController extends \BaseController {
      */
     public function index() {
         //
-        $this->data['comments'] = Comment::with('artikel')->orderBy('created_at', 'desc')->select('komentar.*')->paginate(5);
+        $this->data['comments'] = Comment::with('artikel')->orderBy('id', 'desc')->select('komentar.*')->paginate(5);
         return View::make('comments.index', $this->data);
     }
 
@@ -29,6 +29,23 @@ class CommentController extends \BaseController {
      */
     public function store() {
         //
+        $input = Input::all();
+        var_dump($input);die();
+        $data = array(
+            'nama' => 'test',
+            'url' => 'test.com',
+            'email' => 'test@tes.com',
+            'komentar' => 'telo',
+            'parent_id' => '13'
+        );
+        $com = new Comment();
+        $com->fill($data);
+        $post = Artikel::find(15);
+        $com->artikel()->associate($post);
+        $com->save();
+        $queries = DB::getQueryLog();
+        $last_query = end($queries);
+        var_dump($last_query);
     }
 
     /**
