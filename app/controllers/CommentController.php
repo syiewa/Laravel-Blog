@@ -29,23 +29,29 @@ class CommentController extends \BaseController {
      */
     public function store() {
         //
-        $input = Input::all();
-        var_dump($input);die();
-        $data = array(
-            'nama' => 'test',
-            'url' => 'test.com',
-            'email' => 'test@tes.com',
-            'komentar' => 'telo',
-            'parent_id' => '13'
-        );
+        if (!Sentry::check()) {
+            $input = Input::all();
+            $validation = Comment::make($input, Comment::$rules);
+            if ($validation->fails()) {
+                return Redirect::route('admin.comments.index')->withInput()->withError($validation);
+            }
+        } else {
+            $user = Sentry::getUser();
+            $input = array(
+                'nama' => ucfirst($user->first_name) . ' ' . ucfirst($user->last_name),
+                'url' => 'arnosa.net',
+                'email' => $user->email,
+                'komentar' => strip_tags(Input::get('komentar')),
+                'parent_id' => Input::get('parent_id'),
+            );
+        }
         $com = new Comment();
-        $com->fill($data);
-        $post = Artikel::find(15);
+        $com->fill($input);
+        $post = Artikel::find(Input::get('post_id'));
         $com->artikel()->associate($post);
-        $com->save();
-        $queries = DB::getQueryLog();
-        $last_query = end($queries);
-        var_dump($last_query);
+        if ($com->save()) {
+            return Redirect::route('admin.comments.index');
+        }
     }
 
     /**

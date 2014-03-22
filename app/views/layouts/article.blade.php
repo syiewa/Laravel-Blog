@@ -9,23 +9,36 @@
         {{ HTML::style('/assets/css/prettify.css') }}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <body>
-        @include('layouts.header')
-        <div class="container" id="main">
-
-            <div class='row'>
-                <div class="col-md-3" id="sidebar">
-                    @include('layouts.sidebar')
-                </div>
-                <div class="col-md-9">
-                    @if (Session::has('message'))
-                    <div class="flash alert">
-                        <p>{{ Session::get('message') }}</p>
+        <!--        @include('layouts.header')-->
+        <div class="wrapper">
+            <div class="box">
+                <div class="row row-offcanvas row-offcanvas-left">
+                    <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
+                        @include('layouts.sidebar')
                     </div>
-                    @endif
-                    @yield('main')
+                    <div class="column col-sm-10 col-xs-11" id="main">
+                        <div class="padding">
+                            <div class="full col-sm-9">
+                                <!-- content -->                      
+                                <div class="row">
+                                    @if (Session::has('message'))
+                                    <div class="col-sm-12">
+                                        <div class="flash alert">
+                                            <p>{{ Session::get('message') }}</p>
+                                        </div>
+                                        @endif
+                                        <div class="panel panel-default">
+                                            @yield('main')
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
         {{ HTML::script('https://code.jquery.com/jquery-1.11.0.min.js') }}
         {{ HTML::script('/assets/js/moment.min.js') }}
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -79,6 +92,14 @@
                 });
             });
             $(document).ready(function() {
+                $('[data-toggle=offcanvas]').click(function() {
+                    $(this).toggleClass('visible-xs text-center');
+                    $(this).find('i').toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
+                    $('.row-offcanvas').toggleClass('active');
+                    $('#lg-menu').toggleClass('hidden-xs').toggleClass('visible-xs');
+                    $('#xs-menu').toggleClass('visible-xs').toggleClass('hidden-xs');
+                    $('#btnShow').toggle();
+                });
                 /* swap open/close side menu icons */
                 $("[data-toggle=collapse]").click(function() {
                     // toggle icon
@@ -87,7 +108,7 @@
                 $("table").on('click', '.reply', function(e) {
                     var url = $(this).attr('href');
                     var posts = $(this).attr('id');
-                    var id =  posts.split("-");
+                    var id = posts.split("-");
                     console.log(id[0]);
                     $('html, body').animate({
                         scrollTop: $("#telo").offset().top

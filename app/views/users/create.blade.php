@@ -15,6 +15,18 @@
 {{ Form::open(array('route' => 
 'admin.users.store','class' => 'form-horizontal','enctype' => "multipart/form-data")) }}
 <div class="form-group">
+    {{ Form::label('first_name', 'First Name',array('class' => 'col-sm-2 control-label')) }}
+    <div class="col-sm-5">
+        {{ Form::text('first_name','',array('class' => 'form-control')) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ Form::label('last_name', 'Last Name',array('class' => 'col-sm-2 control-label')) }}
+    <div class="col-sm-5">
+        {{ Form::text('last_name','',array('class' => 'form-control')) }}
+    </div>
+</div>
+<div class="form-group">
     {{ Form::label('email', 'Email',array('class' => 'col-sm-2 control-label')) }}
     <div class="col-sm-5">
         {{ Form::email('email','',array('class' => 'form-control')) }}

@@ -14,6 +14,18 @@
 {{ Form::model($user, array('method' => 'PATCH', 'route' => 
 array('admin.users.update', $user->id),'class' => 'form-horizontal')) }}
 <div class="form-group">
+    {{ Form::label('first_name', 'First Name',array('class' => 'col-sm-2 control-label')) }}
+    <div class="col-sm-5">
+        {{ Form::text('first_name',$user->first_name,array('class' => 'form-control')) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ Form::label('last_name', 'Last Name',array('class' => 'col-sm-2 control-label')) }}
+    <div class="col-sm-5">
+        {{ Form::text('last_name',$user->last_name,array('class' => 'form-control')) }}
+    </div>
+</div>
+<div class="form-group">
     {{ Form::label('email', 'Email',array('class' => 'col-sm-2 control-label')) }}
     <div class="col-sm-5">
         {{ Form::email('email',$user->email,array('class' => 'form-control')) }}

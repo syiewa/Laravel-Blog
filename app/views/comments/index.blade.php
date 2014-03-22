@@ -18,8 +18,8 @@
         <tr>
             <td>
                 <p style="font-size: 0.75em"><strong>{{ $com->nama }}</strong></p>
-                <p style="font-size: 0.55em">{{ HTML::link($com->email, $com->email) }}</p>
-                <p style="font-size: 0.55em">{{ $com->url }}</p>
+                <p style="font-size: 0.55em">{{ HTML::link($com->url, $com->url) }}</p>
+                <p style="font-size: 0.55em">{{ $com->email }}</p>
             </td>
             <td>
                 <p style="font-size: 0.55em">Submitted on {{ date('d M Y h:i:s',strtotime($com->created_at)) }}</p>
