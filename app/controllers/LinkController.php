@@ -12,6 +12,10 @@ class LinkController extends \BaseController {
         View::share('active', 'links');
     }
 
+    public function index(){
+        $this->data['links']  = Links::all();
+        return View::make('links.index',  $this->data);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -70,16 +74,6 @@ class LinkController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id) {
         //
     }
 

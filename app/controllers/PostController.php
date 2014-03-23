@@ -18,6 +18,7 @@ class PostController extends \BaseController {
     }
 
     public function index() {
+        
         $this->data['stat'] = $this->stat;
         $this->data['artikel'] = Artikel::orderBy('tgl', 'desc')->paginate(5);
         return View::make('posts.index', $this->data);

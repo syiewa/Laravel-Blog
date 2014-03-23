@@ -1,15 +1,15 @@
 <!-- Left column -->
 <ul class="list-unstyled hidden-xs" id="sidebar-footer">
     <li>
-        <a href="http://www.bootply.com"><h3>Bootstrap</h3> <i class="glyphicon glyphicon-heart-empty"></i> Bootply</a>
+        <a href="http://www.bootply.com"><h3>Bootstrap</h3> <i class="fa fa-heart-o"></i> Bootply</a>
     </li>
 </ul>
 <ul class="nav">
-    <li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+    <li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="fa fa-chevron-right"></i></a></li>
 </ul>
 <ul class="nav nav-pills nav-stacked hidden-xs" id="lg-menu">
     <li @if(isset($active) && $active=="article") class="active" @endif> <a href="#" data-toggle="collapse" data-target="#Article">
-            <b> Articles </b><i class="glyphicon glyphicon-chevron-down pull-right"></i>
+            <b> Articles </b><i class="pull-right fa fa-chevron-down"></i>
         </a>
         <ul class="nav nav-pills nav-stacked collapse" id="Article">
             <li> <a href="{{ url('admin/artikel') }}"><i class="fa fa-list-alt fa-fw"></i> All Articles</a></li>
@@ -18,7 +18,7 @@
         </ul>
     </li>
     <li @if(isset($active) && $active=="users") class="active" @endif> <a href="#" data-toggle="collapse" data-target="#userMenu">
-            <b>Users</b> <i class="glyphicon glyphicon-chevron-down pull-right"></i>
+            <b>Users</b> <i class="pull-right fa fa-chevron-down"></i>
         </a>
         <ul class="nav nav-pills nav-stacked collapse" id="userMenu">
             <li> <a href="{{ url('admin/users') }}"><i class="fa fa-users fa-fw"></i> All Users</a></li>
@@ -26,7 +26,7 @@
         </ul>
     </li>
     <li @if(isset($active) && $active=="links") class="active" @endif> <a href="#" data-toggle="collapse" data-target="#link">
-            <b>Links</b> <i class="glyphicon glyphicon-chevron-down pull-right"></i>
+            <b>Links</b> <i class="pull-right fa fa-chevron-down"></i>
         </a>
         <ul class="nav nav-pills nav-stacked collapse" id="link">
             <li> <a href="{{ url('admin/links') }}"><i class="fa fa-link fa-fw"></i> All Links</a></li>

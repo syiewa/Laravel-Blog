@@ -23,11 +23,11 @@
                     <td>{{ date('d M Y',strtotime($art->tgl)) }}</td>
                     <td>{{ date('d M Y',strtotime($art->pubdate)) }}</td>
                     <td>{{ $stat[$art->status] }}</td>
-                    <td>{{ link_to_route('admin.artikel.edit', 'Edit', array($art->id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('admin.artikel.edit', 'Edit', array($art->id), array('class' => 'btn btn-info btn-sm')) }}</td>
                     <td>
                         {{ Form::open(array('method'
                         => 'DELETE', 'route' => array('admin.artikel.destroy', $art->id))) }}
-                        {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                        {{ Form::submit('Delete', array('class' => 'btn btn-danger btn-sm')) }}
                         {{ Form::close() }}
                     </td>
                 </tr>
