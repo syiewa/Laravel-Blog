@@ -1,7 +1,7 @@
 @extends('front.layouts.front')
 @section('main')
 {{ Breadcrumbs::render() }}
-<div class='panel'>
+<div class='panel panel-default'>
     <h1>{{ $art->judul }}</h1>
     <p><strong>By: Admin | {{ date('d F Y',strtotime($art->pubdate)) }} 
             |
@@ -13,7 +13,7 @@
     {{ $art->isi }}
 </div>
 @if ($art->comment->count())
-<div class="panel">
+<div class="panel panel-default">
     <h1>Comments</h1>
     @foreach ($art->comment as $com)
     {{ $com->nama }}

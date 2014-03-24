@@ -25,17 +25,21 @@ Route::get('logout', array('as' => 'frontlogout', 'uses' => 'UsersController@log
 
 // Front Routes
 Route::get('/', array('as' => 'home', 'uses' => 'PostController@home'));
-Route::bind('slug', function($value,$route) {
+Route::bind('slug', function($value, $route) {
     $slug = Artikel::where('slug', '=', $value)->first();
     return $slug;
 });
-Route::get('artikel/{slug}', array('as'=>'artikel','uses'=>'PostController@show'));
-//Route::get('artikel/{slug}', array('as' => 'artikel', function($slug) {
-//$data['art'] = Artikel::where('slug', '=', $slug)->first();
-//$data['arsip'] = Artikel::archives();
-//$data['telo'] = Tags::groupBy('slug')->get();
-//if (is_null($data['art']))
-//    return Event::first('404');
-//
-//return View::make('front.show', $data)->nest('sidebar', 'front.layouts.sidebar', $data);
-//}));
+Route::bind('tags', function ($value, $route) {
+    if ($value) {
+        $tags = Tags::whereHas('artikel', function($q) {
+                    $q->where('slug', '=', 'game');
+                })->first();
+        if ($tags) {
+            return $tags;
+        }
+        App::abort(404);
+    }
+});
+Route::get('artikel/{slug}', array('as' => 'artikel', 'uses' => 'PostController@show'));
+Route::get('tags/{tags}', array('as' => 'tags', 'uses' => 'PostController@tags_show'));
+

@@ -2,7 +2,7 @@
     <head>
         <meta charset="utf-8">
         <title>Arnosa.net</title>
-        <link href="http://bootswatch.com/yeti/bootstrap.min.css" rel="stylesheet">
+        <link href="http://bootswatch.com/cosmo/bootstrap.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" type="text/css" rel="stylesheet">
         {{ HTML::style('/assets/css/front.css') }}
         {{ HTML::style('/assets/css/prettify.css') }}
