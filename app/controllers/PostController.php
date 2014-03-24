@@ -58,6 +58,7 @@ class PostController extends \BaseController {
         $artikel->pubdate = date('Y-m-d h:i:s', strtotime($input['pubdate']));
         $artikel->status = $input['status'];
         $artikel->tgl = date('Y-m-d h:i:s');
+        $artikel->slug = getSlug($input['judul']);
         if (Input::hasFile('gambar')) {
             Input::file('gambar')->move($destinationPath);
             $artikel->gambar = Input::file('gambar')->getClientOriginalName();
@@ -83,12 +84,15 @@ class PostController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
+    public function show(Artikel $slug) {
         //
-        $this->data['artikel'] = Artikel::with(array('comment' => function($query) {
-                        $query->withDepth();
-                    }))->find($id);
-        return View::make('admin.posts.show', $this->data);
+        $data['art'] = $slug;
+        $data['arsip'] = Artikel::archives();
+        $data['telo'] = Tags::groupBy('slug')->get();
+        if (is_null($data['art']))
+            return Event::first('404');
+
+        return View::make('front.show', $data)->nest('sidebar', 'front.layouts.sidebar', $data);
     }
 
     /**
@@ -114,6 +118,7 @@ class PostController extends \BaseController {
         //
         $input = Input::all();
         $input['pubdate'] = date('Y-m-d h:i:s', strtotime(Input::get('pubdate')));
+        $input['slug'] = getSlug(Input::get('judul'));
         $tags = explode(",", $input['tags']);
         $destinationPath = public_path() . '/assets/image';
         if (Input::hasFile('gambar')) {

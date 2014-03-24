@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Admin Page</title>
+        <title>Arnosa.net</title>
         <link href="http://bootswatch.com/yeti/bootstrap.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" type="text/css" rel="stylesheet">
         {{ HTML::style('/assets/css/front.css') }}
@@ -22,7 +22,9 @@
             </div>
         </div>
         <div class='footer' style='background-color: white'>
-            <p class='text-center'>Created By : Syiewa@ {{ date('Y') }}</p>
+            <div class="container">
+                <p class='text-center'>Created By : Syiewa@ {{ date('Y') }}</p>
+            </div>
         </div>
 
         {{ HTML::script('https://code.jquery.com/jquery-1.11.0.min.js') }}
@@ -31,15 +33,15 @@
         {{ HTML::script('/assets/js/prettify.js') }}
         <script type='text/javascript'>
 
-            $(document).ready(function() {
+$(document).ready(function() {
 
-                $('#sidebar').affix({
-                    offset: {
-                        top: 240
-                    }
-                });
+    $('#sidebar').affix({
+        offset: {
+            top: 240
+        }
+    });
 
-            });
+});
 
         </script>
     </body>

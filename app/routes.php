@@ -12,17 +12,30 @@
  */
 // Admin Routes
 Route::get('admin', 'UsersController@login');
-Route::model('Artikel', 'artikel');
 Route::group(array('prefix' => 'admin', 'before' => 'check'), function() {
-            // main page for the admin section (app/views/admin/dashboard.blade.php)
-            Route::resource('users', 'UsersController');
-            Route::resource('artikel', 'PostController');
-            Route::resource('links', 'LinkController');
-            Route::resource('comments', 'CommentController');
-        });
+    // main page for the admin section (app/views/admin/dashboard.blade.php)
+    Route::resource('users', 'UsersController');
+    Route::resource('artikel', 'PostController');
+    Route::resource('links', 'LinkController');
+    Route::resource('comments', 'CommentController');
+});
 Route::get('login', 'UsersController@login');
 Route::post('login', array('https' => false, 'before' => 'csrf', 'as' => 'postuserlogin', 'uses' => 'UsersController@doLogin'));
 Route::get('logout', array('as' => 'frontlogout', 'uses' => 'UsersController@logout'));
 
 // Front Routes
-Route::get('/', array('as'=>'home','uses'=>'PostController@home'));
+Route::get('/', array('as' => 'home', 'uses' => 'PostController@home'));
+Route::bind('slug', function($value,$route) {
+    $slug = Artikel::where('slug', '=', $value)->first();
+    return $slug;
+});
+Route::get('artikel/{slug}', array('as'=>'artikel','uses'=>'PostController@show'));
+//Route::get('artikel/{slug}', array('as' => 'artikel', function($slug) {
+//$data['art'] = Artikel::where('slug', '=', $slug)->first();
+//$data['arsip'] = Artikel::archives();
+//$data['telo'] = Tags::groupBy('slug')->get();
+//if (is_null($data['art']))
+//    return Event::first('404');
+//
+//return View::make('front.show', $data)->nest('sidebar', 'front.layouts.sidebar', $data);
+//}));

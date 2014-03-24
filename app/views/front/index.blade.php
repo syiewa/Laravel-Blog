@@ -4,8 +4,7 @@
 @if ($artikel->count())
 @foreach ($artikel as $art)
 <div class='panel'>
-    {{ $art->pudate }}
-    <h1>{{ $art->judul }}</h1>
+    <h1>{{ link_to_route('artikel',$art->judul,$art->slug,$attributes = array('class' => 'reply')) }}</h1>
     <p><strong>By: Admin | {{ date('d F Y',strtotime($art->pubdate)) }} 
             |
             @foreach($art->tags as $tag)
@@ -14,7 +13,7 @@
             | Comments ({{ $art->comment->count() }})
         </strong></p>
     {{ truncate($art->isi,400) }}
-    <p><a hre="#" class="btn btn-info btn-sm">Read More</a></p>
+    <p>{{ link_to_route('artikel','Read More',$art->slug,$attributes = array('class' => 'btn btn-sm btn-info')) }}</p>
 </div>
 @endforeach
 <div class='panel'>

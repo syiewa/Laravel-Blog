@@ -8,7 +8,7 @@ class Artikel extends Eloquent {
      * @var string
      */
     protected $table = 'artikel';
-    protected $fillable = array('judul', 'isi', 'status', 'gambar', 'tgl', 'pubdate');
+    protected $fillable = array('judul', 'isi', 'status', 'gambar', 'tgl', 'pubdate','slug');
     public $timestamps = false;
     public static $rules = array(
         'judul' => 'required|min:5',
