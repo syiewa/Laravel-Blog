@@ -14,7 +14,7 @@
         | Comments ({{ $art->comment->count() }})
     </p>
     {{ truncate($art->isi,400) }}
-    <p><a hre="#" class="btn btn-info">Read More</a></p>
+    <p><a hre="#" class="btn btn-info btn-sm">Read More</a></p>
 </div>
 @endforeach
 <div class='panel'>
