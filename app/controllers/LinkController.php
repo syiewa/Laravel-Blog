@@ -14,7 +14,7 @@ class LinkController extends \BaseController {
 
     public function index(){
         $this->data['links']  = Links::all();
-        return View::make('links.index',  $this->data);
+        return View::make('admin.links.index',  $this->data);
     }
     /**
      * Show the form for creating a new resource.
@@ -23,7 +23,7 @@ class LinkController extends \BaseController {
      */
     public function create() {
         //
-        return View::make('links.create');
+        return View::make('admin.links.create');
     }
 
     /**

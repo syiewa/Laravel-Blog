@@ -33,18 +33,22 @@ Breadcrumbs::register('admin.users.create', function($breadcrumbs) {
             $breadcrumbs->parent('admin.users.index');
             $breadcrumbs->push('Create User', route('admin.users.create'));
         });
-        
+
 Breadcrumbs::register('admin.users.edit', function($breadcrumbs, $user) {
             $breadcrumbs->parent('admin.users.index');
             $breadcrumbs->push('Edit User', route('admin.users.edit', $user));
         });
-        
+
 Breadcrumbs::register('admin.links.index', function($breadcrumbs) {
             $breadcrumbs->parent('admin.artikel.index');
             $breadcrumbs->push('All Links', route('admin.links.index'));
         });
-        
+
 Breadcrumbs::register('admin.links.create', function($breadcrumbs) {
             $breadcrumbs->parent('admin.links.index');
             $breadcrumbs->push('Create Link', route('admin.links.create'));
+        });
+
+Breadcrumbs::register('home', function($breadcrumbs) {
+            $breadcrumbs->push('Home', route('home'));
         });

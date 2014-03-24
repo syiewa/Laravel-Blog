@@ -1,10 +1,10 @@
-@extends('layouts/article')
+@extends('admin/layouts/article')
 
 @section('main')
 
 <div class="panel-heading">All Users</div>
 <div class="panel-body">
-    <p>{{ link_to_route('admin.users.create', 'Add new user') }}</p>
+    <p>{{ link_to_route('admin.users.create', 'Add new user','',array('class' => 'btn btn-success btn-sm')) }}</p>
 
     @if (!empty($users))
     <table class="table table-striped table-bordered">

@@ -10,7 +10,7 @@ class CommentController extends \BaseController {
     public function index() {
         //
         $this->data['comments'] = Comment::with('artikel')->orderBy('id', 'desc')->select('komentar.*')->paginate(5);
-        return View::make('comments.index', $this->data);
+        return View::make('admin.comments.index', $this->data);
     }
 
     /**

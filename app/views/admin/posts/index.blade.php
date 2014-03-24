@@ -1,8 +1,9 @@
-@extends('layouts/article')
+@extends('admin/layouts/article')
 
 @section('main')
 <div class="panel-heading">All Articles</div>
 <div class="panel-body">
+    <p>{{ link_to_route('admin.artikel.create', '+ Add new article','',array('class' => 'btn btn-success btn-sm')) }}</p>
     @if ($artikel->count())
     <div class="table-responsive">
         <table class="table table-striped table-bordered">

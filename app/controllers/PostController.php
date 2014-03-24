@@ -12,16 +12,23 @@ class PostController extends \BaseController {
         '1' => 'active'
     );
 
-    public function __construct() {
+    public function __construct(Artikel $Post) {
         parent::__construct();
+        $this->post = $Post;
         View::share('active', 'article');
     }
 
+    public function home() {
+        $this->data['telo'] = Tags::groupBy('slug')->get();
+        $this->data['artikel'] = $this->post->orderBy('tgl', 'desc')->where('status', '1')->where('pubdate', '<=', date("Y-m-d H:i:s"))->paginate(5);
+        return View::make('front.index', $this->data)->nest('sidebar','front.layouts.sidebar',  $this->data);
+    }
+
     public function index() {
-        
+
         $this->data['stat'] = $this->stat;
         $this->data['artikel'] = Artikel::orderBy('tgl', 'desc')->paginate(5);
-        return View::make('posts.index', $this->data);
+        return View::make('admin.posts.index', $this->data);
     }
 
     /**
@@ -31,7 +38,7 @@ class PostController extends \BaseController {
      */
     public function create() {
         //
-        return View::make('posts.create');
+        return View::make('admin.posts.create');
     }
 
     /**
@@ -80,7 +87,7 @@ class PostController extends \BaseController {
         $this->data['artikel'] = Artikel::with(array('comment' => function($query) {
                         $query->withDepth();
                     }))->find($id);
-        return View::make('posts.show', $this->data);
+        return View::make('admin.posts.show', $this->data);
     }
 
     /**
@@ -93,7 +100,7 @@ class PostController extends \BaseController {
         //
         $this->data['artikel'] = Artikel::find($id);
         $this->data['tags'] = Artikel::find($id)->tags()->get();
-        return View::make('posts.edit', $this->data);
+        return View::make('admin.posts.edit', $this->data);
     }
 
     /**

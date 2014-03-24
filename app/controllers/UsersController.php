@@ -15,14 +15,14 @@ class UsersController extends \BaseController {
         //
         $this->data['users'] = Sentry::findAllUsers();
         $this->data['status'] = User::$status;
-        return View::make('users.index', $this->data);
+        return View::make('admin.users.index', $this->data);
     }
 
     public function login() {
         if (Sentry::check()) {
             return Redirect::to('admin/artikel');
         }
-        return View::make('users.login');
+        return View::make('admin.users.login');
     }
 
     public function logout() {
@@ -69,7 +69,7 @@ class UsersController extends \BaseController {
                 $gr->id => $gr->name,
             );
         }
-        return View::make('users.create', $this->data);
+        return View::make('admin.users.create', $this->data);
     }
 
     /**
@@ -129,7 +129,7 @@ class UsersController extends \BaseController {
         if (is_null($this->data['user'])) {
             return Redirect::route('admin.users.index');
         }
-        return View::make('users.edit', $this->data);
+        return View::make('admin.users.edit', $this->data);
     }
 
     /**

@@ -1,7 +1,8 @@
-@extends('layouts/article')
+@extends('admin/layouts/article')
 
 @section('main')
-<div class="panel-heading">Edit User</div>
+
+<div class="panel-heading">Create User</div>
 <div class="panel-body">
     @if ($errors->any())
     <div class="alert alert-danger fade in">
@@ -12,30 +13,30 @@
         </ul>
     </div>
     @endif
-    {{ Form::model($user, array('method' => 'PATCH', 'route' => 
-    array('admin.users.update', $user->id),'class' => 'form-horizontal')) }}
+    {{ Form::open(array('route' => 
+    'admin.users.store','class' => 'form-horizontal','enctype' => "multipart/form-data")) }}
     <div class="form-group">
         {{ Form::label('first_name', 'First Name',array('class' => 'col-sm-2 control-label')) }}
         <div class="col-sm-5">
-            {{ Form::text('first_name',$user->first_name,array('class' => 'form-control')) }}
+            {{ Form::text('first_name','',array('class' => 'form-control')) }}
         </div>
     </div>
     <div class="form-group">
         {{ Form::label('last_name', 'Last Name',array('class' => 'col-sm-2 control-label')) }}
         <div class="col-sm-5">
-            {{ Form::text('last_name',$user->last_name,array('class' => 'form-control')) }}
+            {{ Form::text('last_name','',array('class' => 'form-control')) }}
         </div>
     </div>
     <div class="form-group">
         {{ Form::label('email', 'Email',array('class' => 'col-sm-2 control-label')) }}
         <div class="col-sm-5">
-            {{ Form::email('email',$user->email,array('class' => 'form-control')) }}
+            {{ Form::email('email','',array('class' => 'form-control')) }}
         </div>
     </div>
     <div class="form-group">
         {{ Form::label('password', 'Password',array('class' => 'col-sm-2 control-label')) }}
         <div class="col-sm-5">
-            {{ Form::password('password',array('value' => '','class' => 'form-control')) }}
+            {{ Form::password('password',array('class' => 'form-control')) }}
         </div>
     </div>
     <div class="form-group">
@@ -53,16 +54,10 @@
     <div class="form-group">
         {{ Form::label('activate', 'Status',array('class' => 'col-sm-2 control-label')) }}
         <div class="col-sm-5">
-            @if ($user->activated) 
-            @if ($activated = 1) @endif
-            @else @if ($activated = 0) @endif
-            @endif
-            @if ($user->id == Sentry::getUser()->id) @if ($disabled = "disabled") @endif @else @if ($disabled = NULL) @endif
-            @endif
-            {{ Form::select('activated',array(1 => 'Active',0 => 'inactive'),$activated,array('class' => 'form-control',$disabled)) }}
+            {{ Form::select('activated',array(1 => 'Active',0 => 'inactive'),null,array('class' => 'form-control')) }}
         </div>
     </div>
-    {{ Form::submit('Update', array('class' => 'btn btninfo')) }}
+    {{ Form::submit('Create', array('class' => 'btn btninfo')) }}
     {{ link_to_route('admin.users.index', 'Cancel','', array('class' => 'btn')) }}
     {{ Form::close() }}
 </div>

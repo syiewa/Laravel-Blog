@@ -9,12 +9,11 @@
         {{ HTML::style('/assets/css/prettify.css') }}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <body>
-        <!--        @include('layouts.header')-->
         <div class="wrapper">
             <div class="box">
                 <div class="row row-offcanvas row-offcanvas-left">
                     <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
-                        @include('layouts.sidebar')
+                        @include('admin.layouts.sidebar')
                     </div>
                     <div class="column col-sm-10 col-xs-11" id="main">
                         <div class="padding">
