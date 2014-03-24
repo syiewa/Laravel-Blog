@@ -94,9 +94,11 @@ class PostController extends \BaseController {
 
         return View::make('front.show', $data)->nest('sidebar', 'front.layouts.sidebar', $data);
     }
-    
-    public function tags_show(Artikel $telo){
-        var_dump($telo);
+
+    public function tags_show($telo) {
+        $users = Artikel::with(array('tags' => function($query) {
+                $query->where('slug', 'game');
+            }))->get();
     }
 
     /**

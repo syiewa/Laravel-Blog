@@ -29,17 +29,6 @@ Route::bind('slug', function($value, $route) {
     $slug = Artikel::where('slug', '=', $value)->first();
     return $slug;
 });
-Route::bind('tags', function ($value, $route) {
-    if ($value) {
-        $tags = Tags::whereHas('artikel', function($q) {
-                    $q->where('slug', '=', 'game');
-                })->first();
-        if ($tags) {
-            return $tags;
-        }
-        App::abort(404);
-    }
-});
 Route::get('artikel/{slug}', array('as' => 'artikel', 'uses' => 'PostController@show'));
 Route::get('tags/{tags}', array('as' => 'tags', 'uses' => 'PostController@tags_show'));
 
