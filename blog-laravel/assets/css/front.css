@@ -18,6 +18,8 @@ header {
   #sidebar.affix {
       position: fixed;
       top: 0;
+      bottom: 0px;
+      overflow: scroll;
       width:21.2%;
   }
 }

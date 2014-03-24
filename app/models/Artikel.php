@@ -22,6 +22,42 @@ class Artikel extends Eloquent {
      *
      * @return mixed
      */
+    public function scopeLive($query) {
+        return $query->where($this->getTable() . '.status', '1')
+                        ->where($this->getTable() . '.pubdate', '<=', date('Y-m-d h:i:s'));
+        $queries = DB::getQueryLog();
+        $last_query = end($queries);
+        var_dump($last_query);
+    }
+
+    public function scopeByYearMonth($query, $year, $month) {
+        return $query->where(\DB::raw('DATE_FORMAT(pubdate, "%Y%m")'), '=', $year . $month);
+    }
+
+    public static function archives() {
+// Get the data
+        $archives = self::live()
+                ->select(\DB::raw('
+                YEAR(`pubdate`) AS `year`,
+                MONTH(`pubdate`) AS `month`,
+                MONTHNAME(`pubdate`) AS `monthname`,
+                COUNT(*) AS `count`
+                '))
+                ->groupBy(\DB::raw('DATE_FORMAT(`pubdate`, "%Y%m")'))
+                ->orderBy('pubdate', 'desc')
+                ->get();
+
+// Convert it to a nicely formatted array so we can easily render the view
+        $results = array();
+        foreach ($archives as $archive) {
+            $results[$archive->year][$archive->month] = array(
+                'monthname' => $archive->monthname,
+                'count' => $archive->count,
+            );
+        }
+        return $results;
+    }
+
     public function tags() {
         return $this->hasMany('tags', 'post_id');
     }

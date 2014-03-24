@@ -19,9 +19,10 @@ class PostController extends \BaseController {
     }
 
     public function home() {
+        $this->data['arsip'] = $this->post->archives();
         $this->data['telo'] = Tags::groupBy('slug')->get();
         $this->data['artikel'] = $this->post->orderBy('tgl', 'desc')->where('status', '1')->where('pubdate', '<=', date("Y-m-d H:i:s"))->paginate(5);
-        return View::make('front.index', $this->data)->nest('sidebar','front.layouts.sidebar',  $this->data);
+        return View::make('front.index', $this->data)->nest('sidebar', 'front.layouts.sidebar', $this->data);
     }
 
     public function index() {
