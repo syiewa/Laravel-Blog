@@ -8,7 +8,7 @@
                 </a>
                 <ul class="nav nav-pills nav-stacked collapse" id={{ '"'.$year.'"'}}>
                     @foreach ($months as $monthNumber => $month)
-                    <li> <a href="{{ url('admin/artikel') }}">{{ $month['monthname'] }} ({{ $month['count'] }})</a></li>
+                    <li> <a href="{{ route('month',array($year,$month['monthname'])) }}">{{ $month['monthname'] }} ({{ $month['count'] }})</a></li>
                     @endforeach 
                 </ul>
             </li>
@@ -18,7 +18,7 @@
     <ul class="nav nav-stacked hidden-xs">
         <li><h3 class="highlight">Tags <i class="fa fa-tags pull-right"></i></h3></li>
         @foreach($telo as $t)
-        <span class="label label-success"> {{ $t->nama }}</span>
+        <a href="{{ route('tags',$t->slug) }}"><span class="label label-success">{{ $t->nama }}</span></a>
         @endforeach
     </ul>
 </div>

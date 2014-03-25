@@ -9,7 +9,7 @@ class Tags extends Eloquent {
      */
     protected $table = 'tags';
     protected $primaryKey = 'tag_id';
-    protected $fillable = array('nama','slug');
+    protected $fillable = array('nama', 'slug');
     public $timestamps = false;
 
     /**
@@ -17,7 +17,16 @@ class Tags extends Eloquent {
      *
      * @return mixed
      */
-    public function artikel(){
-        return $this->belongsTo('artikel','post_id');
+    public function artikel() {
+        return $this->belongsTo('artikel', 'post_id');
     }
+
+    public function scopeHmm($query, $telo) {
+        return $query->where('slug', '=', $telo)->whereHas('artikel', function($e) {
+                            $e->orderBy('pubdate', 'desc')
+                                    ->where('status', '=', 1)
+                                    ->where('pubdate', '<=', Carbon\Carbon::now());
+                        });
+    }
+
 }

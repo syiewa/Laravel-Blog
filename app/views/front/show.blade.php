@@ -6,7 +6,7 @@
     <p><strong>By: Admin | {{ date('d F Y',strtotime($art->pubdate)) }} 
             |
             @foreach($art->tags as $tag)
-            <span class="label label-success">{{ $tag->nama }}</span>
+            <a href="{{ route('tags',$tag->slug) }}"><span class="label label-success">{{ $tag->nama }}</span></a>
             @endforeach
             | Comments ({{ $art->comment->count() }})
         </strong></p>

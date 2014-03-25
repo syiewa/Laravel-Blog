@@ -67,7 +67,7 @@ class PostController extends \BaseController {
         if ($validation->passes()) {
             if ($artikel->save($input)) {
                 foreach (explode(",", $tags['tags']) as $t) {
-                    $new_tags = new Tags(array('nama' => $t, 'slug' => $t));
+                    $new_tags = new Tags(array('nama' => $t, 'slug' => truncate($t)));
                     Artikel::find($artikel->id)->tags()->save($new_tags);
                 }
             }
@@ -91,14 +91,26 @@ class PostController extends \BaseController {
         $data['telo'] = Tags::groupBy('slug')->get();
         if (is_null($data['art']))
             return Event::first('404');
-
         return View::make('front.show', $data)->nest('sidebar', 'front.layouts.sidebar', $data);
     }
 
     public function tags_show($telo) {
-        $users = Artikel::with(array('tags' => function($query) {
-                $query->where('slug', 'game');
-            }))->get();
+
+        $data['artikel'] = Tags::Hmm($telo)->paginate(5);
+        $data['arsip'] = $this->post->archives();
+        $data['telo'] = Tags::groupBy('slug')->get();
+        return View::make('front.tags', $data)->nest('sidebar', 'front.layouts.sidebar', $data);
+    }
+
+    public function archives($year, $month = null) {
+        $data['artikel'] = $year->paginate(5);
+        
+        if ($month != null) {
+            $data['artikel'] = $month->paginate(5);
+        }
+        $data['arsip'] = $this->post->archives();
+        $data['telo'] = Tags::groupBy('slug')->get();
+        return View::make('front.index', $data)->nest('sidebar', 'front.layouts.sidebar', $data);
     }
 
     /**
@@ -138,7 +150,7 @@ class PostController extends \BaseController {
             if ($update) {
                 $deltags = $artikel->tags()->delete();
                 foreach ($tags as $t) {
-                    $new_tags = new Tags(array('nama' => $t, 'slug' => $t));
+                    $new_tags = new Tags(array('nama' => $t, 'slug' => truncate($t)));
                     $artikel->tags()->save($new_tags);
                 }
             }

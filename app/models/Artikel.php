@@ -8,7 +8,7 @@ class Artikel extends Eloquent {
      * @var string
      */
     protected $table = 'artikel';
-    protected $fillable = array('judul', 'isi', 'status', 'gambar', 'tgl', 'pubdate','slug');
+    protected $fillable = array('judul', 'isi', 'status', 'gambar', 'tgl', 'pubdate', 'slug');
     public $timestamps = false;
     public static $rules = array(
         'judul' => 'required|min:5',
@@ -25,9 +25,6 @@ class Artikel extends Eloquent {
     public function scopeLive($query) {
         return $query->where($this->getTable() . '.status', '1')
                         ->where($this->getTable() . '.pubdate', '<=', date('Y-m-d h:i:s'));
-        $queries = DB::getQueryLog();
-        $last_query = end($queries);
-        var_dump($last_query);
     }
 
     public function scopeByYearMonth($query, $year, $month) {
