@@ -21,7 +21,7 @@
                 </div> 
             </div>
         </div>
-        <div class='footer'>
+        <div class="footer">
             <div class="container" style='background-color: white'>
                 <p class='text-center'>Created By : Syiewa@ {{ date('Y') }}</p>
             </div>

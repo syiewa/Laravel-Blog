@@ -11,7 +11,9 @@
   |
  */
 // Admin Routes
-Route::get('admin', 'UsersController@login');
+Route::get('admin', function() {
+            return Redirect::to('login');
+        });
 Route::group(array('prefix' => 'admin', 'before' => 'check'), function() {
             // main page for the admin section (app/views/admin/dashboard.blade.php)
             Route::resource('users', 'UsersController');
@@ -24,6 +26,12 @@ Route::post('login', array('https' => false, 'before' => 'csrf', 'as' => 'postus
 Route::get('logout', array('as' => 'frontlogout', 'uses' => 'UsersController@logout'));
 
 // Front Routes
+Route::get('archives', function() {
+            return Redirect::to('/');
+        });
+Route::get('tags', function() {
+            return Redirect::to('/');
+        });
 Route::get('/', array('as' => 'home', 'uses' => 'PostController@home'));
 Route::bind('slug', function($value, $route) {
             $slug = Artikel::where('slug', '=', $value)->first();
@@ -32,11 +40,11 @@ Route::bind('slug', function($value, $route) {
 Route::get('artikel/{slug}', array('as' => 'artikel', 'uses' => 'PostController@show'));
 Route::get('tags/{tags}', array('as' => 'tags', 'uses' => 'PostController@tags_show'));
 Route::bind('year', function($value, $route) {
-            return Artikel::where(\DB::raw('DATE_FORMAT(pubdate, "%Y")'), '=', $value)->orderBy('pubdate','desc');
+            return Artikel::where(\DB::raw('DATE_FORMAT(pubdate, "%Y")'), '=', $value)->orderBy('pubdate', 'desc');
         });
 Route::bind('month', function($value, $route) {
-            $value = date('m',  strtotime($value));
-            return Artikel::where(\DB::raw('DATE_FORMAT(pubdate, "%m")'), '=', $value)->orderBy('pubdate','desc');
+            $value = date('m', strtotime($value));
+            return Artikel::where(\DB::raw('DATE_FORMAT(pubdate, "%m")'), '=', $value)->orderBy('pubdate', 'desc');
         });
 Route::get('archives/{year}', array('as' => 'year', 'uses' => 'PostController@archives'));
 Route::get('archives/{year}/{month?}', array('as' => 'month', 'uses' => 'PostController@archives'));

@@ -13,11 +13,21 @@
     {{ $art->isi }}
 </div>
 @if ($art->comment->count())
-<div class="panel panel-default">
+<div class="panel">
     <h1>Comments</h1>
     @foreach ($art->comment as $com)
-    {{ $com->nama }}
-        @endforeach
+        <blockquote class="blockquote-danger">
+            <div class="row">
+                <div class="col-sm-3 text-center">
+                    <img class="img-circle" src="{{ gravatar($com->email,100) }}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-sm-9">
+                    <p>{{ $com->komentar }}</p>
+                    <small>{{ $com->nama }}</small>
+                </div>
+            </div>
+        </blockquote>
+    @endforeach
 </div>
 @endif
 @stop

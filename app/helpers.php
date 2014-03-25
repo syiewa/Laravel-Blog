@@ -11,6 +11,13 @@ use Illuminate\Support\Collection;
  *
  * @return array
  */
+function gravatar($email,$size = 40) {
+    $email = $email;
+    $size = $size;
+    $grav_url = "http://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) )."&s=" . $size;
+    return $grav_url;
+}
+
 function getSlug($text) {
     $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
     $text = trim($text, '-');
@@ -118,27 +125,27 @@ function make_nav(Collection $tree, $activeItemKey = null, &$active = null) {
         return null;
 
     return array_map(function ($item) use ($activeItemKey, &$active) {
-        $data = array();
+                $data = array();
 
-        $childActive = false;
-        $data['items'] = make_nav($item->children, $activeItemKey, $childActive);
+                $childActive = false;
+                $data['items'] = make_nav($item->children, $activeItemKey, $childActive);
 
-        if ($activeItemKey !== null) {
-            $childActive |= $activeItemKey == $item->getKey();
-        }
+                if ($activeItemKey !== null) {
+                    $childActive |= $activeItemKey == $item->getKey();
+                }
 
-        $active |= $childActive;
+                $active |= $childActive;
 
-        $data['active'] = $childActive;
+                $data['active'] = $childActive;
 
-        foreach (array('url', 'label') as $key) {
-            $getter = 'getNav' . ucfirst($key);
+                foreach (array('url', 'label') as $key) {
+                    $getter = 'getNav' . ucfirst($key);
 
-            $data[$key] = $item->$getter();
-        }
+                    $data[$key] = $item->$getter();
+                }
 
-        return $data;
-    }, $tree->all());
+                return $data;
+            }, $tree->all());
 }
 
 /**

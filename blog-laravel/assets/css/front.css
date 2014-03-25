@@ -5,18 +5,27 @@ html {
 .breadcrumb {
     background-color: #FFFFFF;
 }
+blockquote.blockquote-primary{border-color:#357EBD}
+blockquote.blockquote-primary .square{background-color:#428BCA;color:#FFF}
+blockquote.blockquote-success{border-color:#4CAE4C}
+blockquote.blockquote-success .square{background-color:#5CB85C;color:#FFF}
+blockquote.blockquote-info{border-color:#46B8DA}
+blockquote.blockquote-info .square{background-color:#5BC0DE;color:#FFF}
+blockquote.blockquote-warning{border-color:#EEA236}
+blockquote.blockquote-warning .square{background-color:#F0AD4E;color:#FFF}
+blockquote.blockquote-danger{border-color:#D43F3A}
+blockquote.blockquote-danger .square{background-color:#D9534F;color:#FFF}
 
 .navbar-form input, .form-inline input {
     width:auto;
 }
-
 /* end */
 
 /* custom theme */
-#footer {
+.footer {
     /* Set the fixed height of the footer here */
     height: 60px;
-    background-color: #f5f5f5;
+    background-color: #white;
 }
 
 header {

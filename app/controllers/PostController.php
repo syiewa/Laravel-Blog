@@ -11,7 +11,6 @@ class PostController extends \BaseController {
         '0' => 'inactive',
         '1' => 'active'
     );
-
     public function __construct(Artikel $Post) {
         parent::__construct();
         $this->post = $Post;
@@ -104,7 +103,7 @@ class PostController extends \BaseController {
 
     public function archives($year, $month = null) {
         $data['artikel'] = $year->paginate(5);
-        
+
         if ($month != null) {
             $data['artikel'] = $month->paginate(5);
         }
