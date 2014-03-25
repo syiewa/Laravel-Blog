@@ -16,18 +16,61 @@
 <div class="panel">
     <h1>Comments</h1>
     @foreach ($art->comment as $com)
-        <blockquote class="blockquote-danger">
-            <div class="row">
-                <div class="col-sm-3 text-center">
-                    <img class="img-circle" src="{{ gravatar($com->email,100) }}" style="width: 100px;height:100px;">
-                </div>
-                <div class="col-sm-9">
-                    <p>{{ $com->komentar }}</p>
-                    <small>{{ $com->nama }}</small>
-                </div>
+    <blockquote class="blockquote-danger">
+        <div class="row">
+            <div class="col-sm-3 text-center">
+                <img class="img-circle" src="{{ gravatar($com->email,100) }}" style="width: 100px;height:100px;">
             </div>
-        </blockquote>
+            <div class="col-sm-9">
+                <p>{{ $com->komentar }}</p>
+                <small>{{ $com->nama }}</small>
+            </div>
+        </div>
+    </blockquote>
     @endforeach
 </div>
 @endif
+<div class="panel">
+    <h1>Add New Comments</h1>
+    <form class="form-horizontal" role="form">
+        <div class="form-group has-feedback">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <input type="text" class="form-control" placeholder="Username">
+                </div>
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    <input type="text" class="form-control" placeholder="Username">
+                </div>
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                    <input type="text" class="form-control" placeholder="Username">
+                </div>
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-comment"></i></span>
+                    <textarea class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+                <button type="submit" class="btn btn-default">Comment</button>
+            </div>
+        </div>
+    </form>
+
+</div>
 @stop

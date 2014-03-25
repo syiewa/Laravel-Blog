@@ -1,8 +1,8 @@
 <div id="sidebar">
-    <ul class="nav nav-stacked hidden-xs">
+    <ul class="nav nav-stacked">
         <li><h3 class="highlight">Archieves <i class="fa fa-archive pull-right"></i></h3></li>
         @foreach($arsip as $year => $months)
-        <ul class="nav nav-pills nav-stacked hidden-xs" id="lg-menu">
+        <ul class="nav nav-pills nav-stacked" id="lg-menu">
             <li> <a href="#" data-toggle="collapse" data-target={{ '"#'.$year.'"'}}>
                     <b> {{ $year }} </b><i class="pull-right fa fa-chevron-down"></i>
                 </a>
@@ -15,7 +15,7 @@
         </ul>
         @endforeach
     </ul>
-    <ul class="nav nav-stacked hidden-xs">
+    <ul class="nav nav-stacked">
         <li><h3 class="highlight">Tags <i class="fa fa-tags pull-right"></i></h3></li>
         @foreach($telo as $t)
         <a href="{{ route('tags',$t->slug) }}"><span class="label label-success">{{ $t->nama }}</span></a>

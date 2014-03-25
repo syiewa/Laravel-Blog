@@ -19,13 +19,25 @@ blockquote.blockquote-danger .square{background-color:#D9534F;color:#FFF}
 .navbar-form input, .form-inline input {
     width:auto;
 }
+
+.glyphicon { margin-right:10px; }
+.panel-body { padding:0px; }
+.panel-body table tr td { padding-left: 15px }
+.panel-body .table {margin-bottom: 0px; }
 /* end */
 
 /* custom theme */
-.footer {
-    /* Set the fixed height of the footer here */
+#footer {
+     padding: 80px 0 82px;
+    background-color: white;
+    bottom: 0;
     height: 60px;
-    background-color: #white;
+    position: absolute;
+    width: 100%;
+}
+#footer > .container {
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 header {
