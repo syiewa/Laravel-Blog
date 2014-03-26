@@ -22,7 +22,7 @@ class Comment extends \Kalnoy\Nestedset\Node {
      * @return mixed
      */
     public function artikel() {
-        return $this->belongsTo('artikel', 'post_id');
+        return $this->belongsTo('Artikel', 'post_id');
     }
 
 }
