@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="footer">
-            <div class="container" style='background-color: white'>
+            <div class="container" style='background-color: white;width: 100%;'>
                 <p class='text-center'>Created By : Syiewa@ {{ date('Y') }}</p>
             </div>
         </div>
@@ -32,17 +32,13 @@
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         {{ HTML::script('/assets/js/prettify.js') }}
         <script type='text/javascript'>
-
-$(document).ready(function() {
-
-    $('#sidebar').affix({
-        offset: {
-            top: 240
-        }
-    });
-
-});
-
+            $(document).ready(function() {
+                $('#sidebar').affix({
+                    offset: {
+                        top: 240
+                    }
+                });
+            });
         </script>
     </body>
 </html>
