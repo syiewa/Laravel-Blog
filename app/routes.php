@@ -48,4 +48,5 @@ Route::bind('month', function($value, $route) {
         });
 Route::get('archives/{year}', array('as' => 'year', 'uses' => 'PostController@archives'));
 Route::get('archives/{year}/{month?}', array('as' => 'month', 'uses' => 'PostController@archives'));
+Route::post('store', array('as' => 'store','uses'=>'CommentController@store'));
 

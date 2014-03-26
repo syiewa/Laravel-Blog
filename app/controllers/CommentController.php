@@ -30,10 +30,21 @@ class CommentController extends \BaseController {
     public function store() {
         //
         if (!Sentry::check()) {
-            $input = Input::all();
-            $validation = Comment::make($input, Comment::$rules);
+            $input = Input::except('slug');
+            $validation = Validator::make($input, Comment::$rules);
             if ($validation->fails()) {
-                return Redirect::route('admin.comments.index')->withInput()->withError($validation);
+                return Redirect::to('artikel/' . Input::get('slug'))->withInput($input)->withErrors($validation);
+            }
+            $input['parent_id'] = 0;
+            $telo = new Comment();
+            $telo->nama = $input['nama'];
+            $telo->url = $input['url'];
+            $telo->email = $input['email'];
+            $telo->komentar = strip_tags($input['komentar']);
+            $post = Artikel::find(Input::get('post_id'));
+            $telo->artikel()->associate($post);
+            if ($telo->save()) {
+                return Redirect::to('artikel/' . Input::get('slug'));
             }
         } else {
             $user = Sentry::getUser();
@@ -50,7 +61,7 @@ class CommentController extends \BaseController {
         $post = Artikel::find(Input::get('post_id'));
         $com->artikel()->associate($post);
         if ($com->save()) {
-            return Redirect::route('admin.comments.index');
+            Redirect::route('admin.comments.index');
         }
     }
 

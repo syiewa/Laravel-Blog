@@ -32,45 +32,55 @@
 @endif
 <div class="panel">
     <h1>Add New Comments</h1>
-    <form class="form-horizontal" role="form">
-        <div class="form-group has-feedback">
-            <div class="col-sm-6">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" class="form-control" placeholder="Username">
-                </div>
+    @if ($errors->any())
+    <div class="alert alert-danger fade in">
+        <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+        <ul>
+            {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+        </ul>
+    </div>
+    @endif
+    {{ Form::open(array('route' => array('store'),'class'=> 'form-horizontal')) }}
+    {{ Form::hidden('slug',$art->slug) }}
+    {{ Form::hidden('post_id',$art->id) }}
+    <div class="form-group has-feedback">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" class="form-control" placeholder="Username Required" name="nama">
             </div>
         </div>
-        <div class="form-group has-feedback">
-            <div class="col-sm-6">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                    <input type="text" class="form-control" placeholder="Username">
-                </div>
+    </div>
+    <div class="form-group has-feedback">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <input type="text" class="form-control" placeholder="Email Required" name="email">
             </div>
         </div>
-        <div class="form-group has-feedback">
-            <div class="col-sm-6">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-globe"></i></span>
-                    <input type="text" class="form-control" placeholder="Username">
-                </div>
+    </div>
+    <div class="form-group has-feedback">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                <input type="text" class="form-control" placeholder="URL ex:http://example.com" name="url">
             </div>
         </div>
-        <div class="form-group has-feedback">
-            <div class="col-sm-9">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-comment"></i></span>
-                    <textarea class="form-control"></textarea>
-                </div>
+    </div>
+    <div class="form-group has-feedback">
+        <div class="col-sm-9">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-comment"></i></span>
+                <textarea class="form-control" name="komentar"></textarea>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-                <button type="submit" class="btn btn-default">Comment</button>
-            </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-9">
+            <button type="submit" class="btn btn-default">Comment</button>
         </div>
-    </form>
+    </div>
+</form>
 
 </div>
 @stop
