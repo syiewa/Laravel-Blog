@@ -8,7 +8,7 @@ class Comment extends \Kalnoy\Nestedset\Node {
      * @var string
      */
     protected $table = 'komentar';
-    protected $fillable = array('nama', 'url', 'email', 'komentar');
+    protected $fillable = array('nama', 'url', 'email', 'komentar', 'parent_id');
     public static $rules = array(
         'nama' => 'required',
         'url' => 'url',

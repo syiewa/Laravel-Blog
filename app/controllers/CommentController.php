@@ -35,12 +35,8 @@ class CommentController extends \BaseController {
             if ($validation->fails()) {
                 return Redirect::to('artikel/' . Input::get('slug'))->withInput($input)->withErrors($validation);
             }
-            $input['parent_id'] = 0;
             $telo = new Comment();
-            $telo->nama = $input['nama'];
-            $telo->url = $input['url'];
-            $telo->email = $input['email'];
-            $telo->komentar = strip_tags($input['komentar']);
+            $telo->fill($input);
             $post = Artikel::find(Input::get('post_id'));
             $telo->artikel()->associate($post);
             if ($telo->save()) {
