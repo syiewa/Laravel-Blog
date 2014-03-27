@@ -7,10 +7,10 @@ class UsersController extends \BaseController {
      *
      * @return Response
      */
-    
     public function __construct() {
         View::share('active', 'users');
     }
+
     public function index() {
         //
         $this->data['users'] = Sentry::findAllUsers();
@@ -148,10 +148,16 @@ class UsersController extends \BaseController {
         $input = Input::get();
         $validation = Validator::make($input, $rules);
         if ($validation->passes()) {
+            $user->first_name = Input::get('first_name');
+            $user->last_name = Input::get('last_name');
             $user->email = Input::get('email');
             if (Input::get('password') != '')
                 $user->password = Input::get('password');
-            $user->activated = Input::get('activated');
+            if ($id == Sentry::getUser()->id) {
+                $user->activated = '1';
+            } else {
+                $user->activated = Input::get('activated');
+            }
             if ($user->save()) {
                 $adminGroup = Sentry::findGroupById(Input::get('group'));
                 $user->addGroup($adminGroup);

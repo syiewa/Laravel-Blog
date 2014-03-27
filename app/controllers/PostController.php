@@ -11,17 +11,19 @@ class PostController extends \BaseController {
         '0' => 'inactive',
         '1' => 'active'
     );
+
     public function __construct(Artikel $Post) {
         parent::__construct();
         $this->post = $Post;
+        $this->data['arsip'] = $this->post->archives();
+        $this->data['links'] = Links::all();
+        $this->data['telo'] = Tags::groupBy('slug')->get();
         View::share('active', 'article');
     }
 
     public function home() {
-        $this->data['arsip'] = $this->post->archives();
-        $this->data['telo'] = Tags::groupBy('slug')->get();
         $this->data['artikel'] = $this->post->orderBy('tgl', 'desc')->where('status', '1')->where('pubdate', '<=', date("Y-m-d H:i:s"))->paginate(5);
-        return View::make('front.index', $this->data)->nest('sidebar', 'front.layouts.sidebar', $this->data);
+        return View::make('front.index', $this->data)->nest('sidebar', 'front.layouts.sidebar', $this->data)->nest('footer', 'front.layouts.footer', $this->data);
     }
 
     public function index() {
@@ -85,31 +87,26 @@ class PostController extends \BaseController {
      */
     public function show(Artikel $slug) {
         //
-        $data['art'] = $slug;
-        $data['arsip'] = Artikel::archives();
-        $data['telo'] = Tags::groupBy('slug')->get();
-        if (is_null($data['art']))
+        $this->data['art'] = $slug;
+        if (is_null($this->data['art']))
             return Event::first('404');
-        return View::make('front.show', $data)->nest('sidebar', 'front.layouts.sidebar', $data);
+        return View::make('front.show', $this->data)->nest('sidebar', 'front.layouts.sidebar', $this->data)->nest('footer', 'front.layouts.footer', $this->data);
     }
 
     public function tags_show($telo) {
-
-        $data['artikel'] = Tags::Hmm($telo)->paginate(5);
-        $data['arsip'] = $this->post->archives();
-        $data['telo'] = Tags::groupBy('slug')->get();
-        return View::make('front.tags', $data)->nest('sidebar', 'front.layouts.sidebar', $data);
+        $this->data['artikel'] = Tags::Hmm($telo)->paginate(5);
+        return View::make('front.tags', $this->data)->nest('sidebar', 'front.layouts.sidebar', $this->data)->nest('footer', 'front.layouts.footer', $this->data);
+        ;
     }
 
     public function archives($year, $month = null) {
-        $data['artikel'] = $year->paginate(5);
+        $this->data['artikel'] = $year->paginate(5);
 
         if ($month != null) {
-            $data['artikel'] = $month->paginate(5);
+            $this->data['artikel'] = $month->paginate(5);
         }
-        $data['arsip'] = $this->post->archives();
-        $data['telo'] = Tags::groupBy('slug')->get();
-        return View::make('front.index', $data)->nest('sidebar', 'front.layouts.sidebar', $data);
+        return View::make('front.index', $this->data)->nest('sidebar', 'front.layouts.sidebar', $this->data)->nest('footer', 'front.layouts.footer', $this->data);
+        ;
     }
 
     /**

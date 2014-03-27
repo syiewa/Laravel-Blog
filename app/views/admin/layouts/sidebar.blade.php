@@ -33,6 +33,10 @@
             <li> <a href="{{ url('admin/links/create') }}"><i class="fa fa-external-link fa-fw"></i> Create Link</a></li>
         </ul>
     </li>
+    <li class=" "> <a href="{{ url('') }}" target="_blank">
+            <b>Front Page</b> 
+        </a>
+    </li>
     <li class=" "> <a href="{{ url('logout') }}">
             <b>Logout</b> 
         </a>
@@ -44,7 +48,7 @@
     <li> <a href="{{ url('admin/artikel') }}"><i class="fa fa-list-alt fa-fw"></i></a></li>
     <li> <a href="{{ url('admin/users') }}"><i class="fa fa-users fa-fw"></i></a></li>
     <li> <a href="{{ url('admin/links') }}"><i class="fa fa-link fa-fw"></i></a></li>
-        <li> <a href="{{ url('logout') }}">
+    <li> <a href="{{ url('logout') }}">
             <i class="fa fa-sign-out fa-fw"></i>
         </a>
     </li>

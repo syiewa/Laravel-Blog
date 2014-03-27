@@ -11,6 +11,7 @@
             | Comments ({{ $art->comment->count() }})
         </strong></p>
     {{ $art->isi }}
+    <hr>
 </div>
 @if ($art->comment->count())
 <div class="panel" id="comment">
@@ -81,6 +82,7 @@
             {{ Form::close() }}
         </div>
     </blockquote>
+    <hr>
     @endforeach
 </div>
 @endif
@@ -135,6 +137,6 @@
         </div>
     </div>
 </form>
-
+<hr>
 </div>
 @stop
