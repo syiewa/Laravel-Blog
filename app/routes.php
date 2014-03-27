@@ -34,7 +34,9 @@ Route::get('tags', function() {
         });
 Route::get('/', array('as' => 'home', 'uses' => 'PostController@home'));
 Route::bind('slug', function($value, $route) {
-            $slug = Artikel::where('slug', '=', $value)->first();
+            $slug = Artikel::where('slug', '=', $value)->with(array('comment' => function($query) {
+                            $query->orderBy('lft', 'asc')->orderBy('created_at', 'desc');
+                        }))->first();
             return $slug;
         });
 Route::get('artikel/{slug}', array('as' => 'artikel', 'uses' => 'PostController@show'));
@@ -48,4 +50,5 @@ Route::bind('month', function($value, $route) {
         });
 Route::get('archives/{year}', array('as' => 'year', 'uses' => 'PostController@archives'));
 Route::get('archives/{year}/{month?}', array('as' => 'month', 'uses' => 'PostController@archives'));
+Route::post('comment/store', array('as' => 'store', 'uses' => 'CommentController@store'));
 

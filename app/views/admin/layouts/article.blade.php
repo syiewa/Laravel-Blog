@@ -81,6 +81,7 @@
                             {title: 'Danger', block: 'span', classes: 'label label-danger'},
                         ]},
                     {title: 'Code Highlight', block: 'pre', classes: 'prettyprint linenums'},
+                    {title: 'Media Responsive', block: 'div', classes: 'video-container'},
                 ]
 
             });

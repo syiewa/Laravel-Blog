@@ -6,8 +6,8 @@
     "require": {
         "laravel/framework": "4.1.*",
         "cartalyst/sentry": "2.1.*",
-        "kalnoy/nestedset": "1.0.*",
-        "davejamesmiller/laravel-breadcrumbs": "~2.2.0"
+        "davejamesmiller/laravel-breadcrumbs": "~2.2.0",
+        "baum/baum": "~1.0"
     },
     "autoload": {
         "classmap": [

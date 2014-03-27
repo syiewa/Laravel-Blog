@@ -9,7 +9,7 @@ class CommentController extends \BaseController {
      */
     public function index() {
         //
-        $this->data['comments'] = Comment::with('artikel')->orderBy('id', 'desc')->select('komentar.*')->paginate(5);
+        $this->data['comments'] = Comment::with('artikel')->orderBy('created_at', 'desc')->select('komentar.*')->paginate(5);
         return View::make('admin.comments.index', $this->data);
     }
 
@@ -30,10 +30,19 @@ class CommentController extends \BaseController {
     public function store() {
         //
         if (!Sentry::check()) {
-            $input = Input::all();
-            $validation = Comment::make($input, Comment::$rules);
+            $input = Input::except('slug', 'parent_id');
+            $validation = Validator::make($input, Comment::$rules);
             if ($validation->fails()) {
-                return Redirect::route('admin.comments.index')->withInput()->withError($validation);
+                return Redirect::to('artikel/' . Input::get('slug'))->withInput($input)->withErrors($validation);
+            }
+            $telo = new Comment();
+            $telo->fill($input);
+            $post = Artikel::find(Input::get('post_id'));
+            $telo->artikel()->associate($post);
+            if ($telo->save()) {
+                $root = Comment::find(Input::get('parent_id'));
+                $telo->makeChildOf($root);
+                return Redirect::to('artikel/' . Input::get('slug'));
             }
         } else {
             $user = Sentry::getUser();
@@ -42,7 +51,6 @@ class CommentController extends \BaseController {
                 'url' => 'arnosa.net',
                 'email' => $user->email,
                 'komentar' => strip_tags(Input::get('komentar')),
-                'parent_id' => Input::get('parent_id'),
             );
         }
         $com = new Comment();
@@ -50,6 +58,10 @@ class CommentController extends \BaseController {
         $post = Artikel::find(Input::get('post_id'));
         $com->artikel()->associate($post);
         if ($com->save()) {
+            if (Input::get('parent_id')) {
+                $root = Comment::find(Input::get('parent_id'));
+                $com->makeChildOf($root);
+            }
             return Redirect::route('admin.comments.index');
         }
     }

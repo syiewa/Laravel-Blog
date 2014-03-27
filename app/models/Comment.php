@@ -1,6 +1,6 @@
 <?php
 
-class Comment extends \Kalnoy\Nestedset\Node {
+class Comment extends Baum\Node {
 
     /**
      * The database table used by the model.
@@ -8,7 +8,16 @@ class Comment extends \Kalnoy\Nestedset\Node {
      * @var string
      */
     protected $table = 'komentar';
-    protected $fillable = array('nama', 'url', 'email', 'komentar', 'parent_id');
+    protected $fillable = array('nama', 'url', 'email', 'komentar');
+    protected $parentColumn = 'parent_id';
+    // 'lft' column name
+    protected $leftColumn = 'lft';
+    // 'rgt' column name
+    protected $rightColumn = 'rgt';
+    // 'depth' column name
+    protected $depthColumn = 'depth';
+    // guard attributes from mass-assignment
+    protected $guarded = array('id', 'parent_id', 'lft', 'rgt', 'depth');
     public static $rules = array(
         'nama' => 'required',
         'url' => 'url',
