@@ -56,11 +56,11 @@ class Artikel extends Eloquent {
     }
 
     public function tags() {
-        return $this->hasMany('tags', 'post_id');
+        return $this->hasMany('Tags', 'post_id');
     }
 
     public function comment() {
-        return $this->hasMany('comment', 'post_id');
+        return $this->hasMany('Comment', 'post_id');
     }
 
 }
