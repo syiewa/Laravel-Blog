@@ -4,8 +4,8 @@
         <title>Arnosa.net</title>
         <link href="http://bootswatch.com/cosmo/bootstrap.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" type="text/css" rel="stylesheet">
-                {{ HTML::style('/assets/prettify/prettify.css') }}
         {{ HTML::style('/assets/css/front.css') }}
+        {{ HTML::style('/assets/prettify/prettify.css') }}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <style type="text/css">
             pre.prettyprint {
@@ -42,15 +42,6 @@
     {{ HTML::script('/assets/js/moment.min.js') }}
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     {{ HTML::script('/assets/prettify/prettify.js') }}
-    <script type='text/javascript'>
-$(document).ready(function() {
-    $('#sidebar').affix({
-        offset: {
-            top: 240
-        }
-    });
-});
-    </script>
     <script>
         !function($) {
             $(function() {

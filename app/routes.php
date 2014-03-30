@@ -39,7 +39,7 @@ Route::bind('slug', function($value, $route) {
                         }))->first();
             return $slug;
         });
-Route::get('artikel/{slug}', array('as' => 'artikel', 'uses' => 'PostController@show'));
+Route::get('artikel/{slug}', array('as' => 'artikel', 'before' => 'counter','uses' => 'PostController@show'));
 Route::get('tags/{tags}', array('as' => 'tags', 'uses' => 'PostController@tags_show'));
 Route::bind('year', function($value, $route) {
             return Artikel::where(\DB::raw('DATE_FORMAT(pubdate, "%Y")'), '=', $value)->orderBy('pubdate', 'desc');

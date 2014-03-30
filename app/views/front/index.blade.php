@@ -10,7 +10,7 @@
             @foreach($art->tags as $tag)
             <a href="{{ route('tags',$tag->slug) }}"><span class="label label-success">{{ $tag->nama }}</span></a>
             @endforeach
-            | Comments ({{ $art->comment->count() }})
+            | Comments ({{ $art->comment->count() }}) | Viewed ({{$art->counter->count()}})
         </strong></p>
     {{ truncate($art->isi,400) }}
     <p>{{ link_to_route('artikel','Read More',$art->slug,$attributes = array('class' => 'btn btn-sm btn-info')) }}</p>

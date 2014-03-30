@@ -63,4 +63,8 @@ class Artikel extends Eloquent {
         return $this->hasMany('Comment', 'post_id');
     }
 
+    public function counter() {
+        return $this->hasMany('Counter', 'post_id');
+    }
+
 }

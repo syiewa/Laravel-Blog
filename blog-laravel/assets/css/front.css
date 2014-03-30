@@ -63,7 +63,7 @@ header {
     }
 
     #sidebar.affix {
-        position: fixed;
+        position: static;
         top: 0px;
         bottom: 45px;
         overflow: hidden;

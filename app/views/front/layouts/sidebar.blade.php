@@ -15,10 +15,4 @@
         </ul>
         @endforeach
     </ul>
-    <ul class="nav nav-stacked">
-        <li><h3 class="highlight">Tags <i class="fa fa-tags pull-right"></i></h3></li>
-        @foreach($telo as $t)
-        <a href="{{ route('tags',$t->slug) }}"><span class="label label-success">{{ $t->nama }}</span></a>
-        @endforeach
-    </ul>
 </div>
