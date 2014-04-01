@@ -64,6 +64,7 @@ Route::get('sitemap_posts', function() {
             // by default cache is disabled
             // add item to the sitemap (url, date, priority, freq)
             // get all posts from db
+            $sitemap_posts->setCache('laravel.sitemap_posts', 3600);
             $posts = Artikel::live()->orderBy('pubdate', 'desc')->get();
             // add every post to the sitemap
             foreach ($posts as $post) {
@@ -77,7 +78,7 @@ Route::get('sitemap_tags', function() {
             $sitemap_tags = App::make("sitemap");
 
             // set cache
-            $sitemap_tags->setCache('laravel.sitemap-tags', 3600);
+            $sitemap_tags->setCache('laravel.sitemap_tags', 3600);
 
             // add items
             $tags = Tags::groupBy('slug')->get();
@@ -95,6 +96,7 @@ Route::get('sitemap', function() {
 
             // set cache
             // add sitemaps (loc, lastmod (optional))
+            $sitemap->add(URL::to('/'), date('d-m-Y h:i:s'), '1.0', 'daily');
             $sitemap->addSitemap(URL::to('sitemap_posts'));
             $sitemap->addSitemap(URL::to('sitemap_tags'));
 
