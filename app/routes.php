@@ -107,11 +107,8 @@ Route::get('/rss', function() {
             $posts = Artikel::live()->orderBy('pubdate', 'desc')->paginate(5);
             // add every post to the sitemap
             foreach ($posts as $post) {
-                $feed->item(array('title' => $post->judul, 'description|cdata' =>  $post->isi, 'link' => 'http://www.arnosa.net/artikel/' . $post->slug));
+                $feed->item(array('title' => $post->judul, 'description|cdata' =>  $post->isi, 'link' => 'http://arnosa.net/artikel/' . $post->slug));
             }
-//            for ($i = 1; $i <= 5; $i++) {
-//                $feed->item(array('title' => 'Item ' . $i, 'description|cdata' => 'Description ' . $i, 'link' => 'http://www.test.com/article-' . $i));
-//            }
 
             return Response::make($feed, 200, array('Content-Type' => 'text/xml'));
         });
