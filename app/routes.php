@@ -101,13 +101,17 @@ Route::get('sitemap', function() {
             // show sitemap
             return $sitemap->render('sitemapindex');
         });
-Route::get('/rss', function()
-{
-    $feed = Rss::feed('2.0', 'UTF-8');
-    $feed->channel(array('title' => 'Channel\'s title', 'description' => 'Channel\'s description', 'link' => 'http://www.test.com/'));
-    for ($i=1; $i<=5; $i++){
-        $feed->item(array('title' => 'Item '.$i, 'description|cdata' => 'Description '.$i, 'link' => 'http://www.test.com/article-'.$i));
-    }
+Route::get('/rss', function() {
+            $feed = Rss::feed('2.0', 'UTF-8');
+            $feed->channel(array('title' => 'Arnosa.net', 'description' => 'Nothing is True , Everything is Permitted', 'link' => 'http://arnosa.net/'));
+            $posts = Artikel::live()->orderBy('pubdate', 'desc')->paginate(5);
+            // add every post to the sitemap
+            foreach ($posts as $post) {
+                $feed->item(array('title' => $post->judul, 'description|cdata' =>  $post->isi, 'link' => 'http://www.arnosa.net/artikel/' . $post->slug));
+            }
+//            for ($i = 1; $i <= 5; $i++) {
+//                $feed->item(array('title' => 'Item ' . $i, 'description|cdata' => 'Description ' . $i, 'link' => 'http://www.test.com/article-' . $i));
+//            }
 
-    return Response::make($feed, 200, array('Content-Type' => 'text/xml'));
-});
+            return Response::make($feed, 200, array('Content-Type' => 'text/xml'));
+        });
