@@ -41,29 +41,30 @@ Route::filter('counter', function() {
 
             // Check if visitor exists
             $post_id = Artikel::where('slug', '=', Request::segment(2))->first()->id;
-            $visitor = Counter::where('post_id', '=', $post_id)->orderBy('created_at')->first();
+            $visitor = Counter::where('post_id', '=', $post_id)->where('ip','=',$ip)->orderBy('created_at');
 
-            if ($visitor > '0') {
+            if ($visitor->count() > 0) {
                 // User exists, Check time difference from updated_at (last_active)
+                foreach ($visitor as $vis) {
+                    $then = strtotime($vis->updated_at);
+                    $now = strtotime(date("Y-m-d H:i:s"));
 
-                $then = strtotime($visitor->updated_at);
-                $now = strtotime(date("Y-m-d H:i:s"));
+                    $difference = ($now - $then);
 
-                $difference = ($now - $then);
-
-                if ($difference > '1200') {
-                    $visitor = new Counter();
-                    $visitor->ip = $ip;
-                    $visitor->post_id = $post_id;
-                    $post = Artikel::find($post_id);
-                    $visitor->posts()->associate($post);
-                    $visitor->save();
-                } else {
-                    // Otherwise update the current visitor
-                    $visitor->post_id = $post_id;
-                    $post = Artikel::find($post_id);
-                    $visitor->posts()->associate($post);
-                    $visitor->save();
+                    if ($difference > '1200') {
+                        $visitor = new Counter();
+                        $visitor->ip = $ip;
+                        $visitor->post_id = $post_id;
+                        $post = Artikel::find($post_id);
+                        $visitor->posts()->associate($post);
+                        $visitor->save();
+                    } else {
+                        // Otherwise update the current visitor
+                        $visitor->post_id = $post_id;
+                        $post = Artikel::find($post_id);
+                        $visitor->posts()->associate($post);
+                        $visitor->save();
+                    }
                 }
             } else {
                 // New visitor, create them

@@ -7,7 +7,9 @@
         "laravel/framework": "4.1.*",
         "cartalyst/sentry": "2.1.*",
         "davejamesmiller/laravel-breadcrumbs": "~2.2.0",
-        "baum/baum": "~1.0"
+        "baum/baum": "~1.0",
+        "roumen/sitemap": "dev-master",
+        "thujohn/rss": "dev-master"
     },
     "autoload": {
         "classmap": [

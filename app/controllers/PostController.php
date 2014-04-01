@@ -22,7 +22,8 @@ class PostController extends \BaseController {
     }
 
     public function home() {
-        $this->data['artikel'] = $this->post->orderBy('tgl', 'desc')->where('status', '1')->where('pubdate', '<=', date("Y-m-d h:i:s"))->paginate(5);
+        $this->data['artikel'] = $this->post->live()->orderBy('pubdate', 'desc')->paginate(5);
+        $this->data['artikel']->setBaseUrl('/telo2/blog-laravel/');
         return View::make('front.index', $this->data)->nest('sidebar', 'front.layouts.sidebar', $this->data)->nest('footer', 'front.layouts.footer', $this->data);
     }
 

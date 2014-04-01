@@ -23,7 +23,7 @@ return array(
       | your application so that it is used when running Artisan tasks.
       |
      */
-    'url' => 'http://localhost',
+    'url' => 'http://localhost/telo2/blog-laravel/',
     /*
       |--------------------------------------------------------------------------
       | Application Timezone
@@ -97,6 +97,8 @@ return array(
         'Cartalyst\Sentry\SentryServiceProvider',
         'DaveJamesMiller\Breadcrumbs\ServiceProvider',
         'Baum\BaumServiceProvider',
+        'Roumen\Sitemap\SitemapServiceProvider',
+        'Thujohn\Rss\RssServiceProvider',
     ),
     /*
       |--------------------------------------------------------------------------
@@ -159,6 +161,7 @@ return array(
         'View' => 'Illuminate\Support\Facades\View',
         'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
         'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
-        'Baum' => 'Baum\BaumServiceProvider'
+        'Baum' => 'Baum\BaumServiceProvider',
+        'Rss' => 'Thujohn\Rss\RssFacade',
     ),
 );

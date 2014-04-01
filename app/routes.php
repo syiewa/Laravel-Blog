@@ -32,6 +32,9 @@ Route::get('archives', function() {
 Route::get('tags', function() {
             return Redirect::to('/');
         });
+Route::get('artikel', function() {
+            return Redirect::to('/');
+        });
 Route::get('/', array('as' => 'home', 'uses' => 'PostController@home'));
 Route::bind('slug', function($value, $route) {
             $slug = Artikel::where('slug', '=', $value)->with(array('comment' => function($query) {
@@ -39,7 +42,7 @@ Route::bind('slug', function($value, $route) {
                         }))->first();
             return $slug;
         });
-Route::get('artikel/{slug}', array('as' => 'artikel', 'before' => 'counter','uses' => 'PostController@show'));
+Route::get('artikel/{slug}', array('as' => 'artikel', 'before' => 'counter', 'uses' => 'PostController@show'));
 Route::get('tags/{tags}', array('as' => 'tags', 'uses' => 'PostController@tags_show'));
 Route::bind('year', function($value, $route) {
             return Artikel::where(\DB::raw('DATE_FORMAT(pubdate, "%Y")'), '=', $value)->orderBy('pubdate', 'desc');
@@ -51,3 +54,60 @@ Route::bind('month', function($value, $route) {
 Route::get('archives/{year}', array('as' => 'year', 'uses' => 'PostController@archives'));
 Route::get('archives/{year}/{month?}', array('as' => 'month', 'uses' => 'PostController@archives'));
 Route::post('comment/store', array('as' => 'store', 'uses' => 'CommentController@store'));
+
+// sitemaps
+Route::get('sitemap_posts', function() {
+
+            // create new sitemap object
+            $sitemap_posts = App::make("sitemap");
+            // set cache (key (string), duration in minutes (Carbon|Datetime|int), turn on/off (boolean))
+            // by default cache is disabled
+            // add item to the sitemap (url, date, priority, freq)
+            // get all posts from db
+            $posts = Artikel::live()->orderBy('pubdate', 'desc')->get();
+            // add every post to the sitemap
+            foreach ($posts as $post) {
+                $sitemap_posts->add(URL::to("artikel/{$post->slug}"), $post->pubdate, '1', 'weekly');
+            }
+            // show your sitemap (options: 'xml' (default), 'html', 'txt', 'ror-rss', 'ror-rdf')
+            return $sitemap_posts->render('xml');
+        });
+Route::get('sitemap_tags', function() {
+            // create sitemap
+            $sitemap_tags = App::make("sitemap");
+
+            // set cache
+            $sitemap_tags->setCache('laravel.sitemap-tags', 3600);
+
+            // add items
+            $tags = Tags::groupBy('slug')->get();
+
+            foreach ($tags as $tag) {
+                $sitemap_tags->add($tag->slug, null, '0.5', 'weekly');
+            }
+
+            // show sitemap
+            return $sitemap_tags->render('xml');
+        });
+Route::get('sitemap', function() {
+            // create sitemap
+            $sitemap = App::make("sitemap");
+
+            // set cache
+            // add sitemaps (loc, lastmod (optional))
+            $sitemap->addSitemap(URL::to('sitemap_posts'));
+            $sitemap->addSitemap(URL::to('sitemap_tags'));
+
+            // show sitemap
+            return $sitemap->render('sitemapindex');
+        });
+Route::get('/rss', function()
+{
+    $feed = Rss::feed('2.0', 'UTF-8');
+    $feed->channel(array('title' => 'Channel\'s title', 'description' => 'Channel\'s description', 'link' => 'http://www.test.com/'));
+    for ($i=1; $i<=5; $i++){
+        $feed->item(array('title' => 'Item '.$i, 'description|cdata' => 'Description '.$i, 'link' => 'http://www.test.com/article-'.$i));
+    }
+
+    return Response::make($feed, 200, array('Content-Type' => 'text/xml'));
+});
