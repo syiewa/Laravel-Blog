@@ -18,6 +18,8 @@ class PostController extends \BaseController {
         $this->data['arsip'] = $this->post->archives();
         $this->data['links'] = Links::all();
         $this->data['telo'] = Tags::groupBy('slug')->get();
+        $this->data['latest_post'] = $this->post->live()->orderBy('pubdate', 'desc')->paginate(5);
+        $this->data['latest_comment'] = Comment::with('artikel')->orderBy('created_at', 'desc')->select('komentar.*')->paginate(3);
         View::share('active', 'article');
     }
 
