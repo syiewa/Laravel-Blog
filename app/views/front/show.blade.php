@@ -131,6 +131,13 @@
             </div>
         </div>
     </div>
+    <div class="form-group has-feedback">
+        <div class="col-sm-9">
+            <div class="input-group">
+                    {{ Form::captcha() }}
+            </div>
+        </div>
+    </div>
     <div class="form-group">
         <div class="col-sm-9">
             <button type="submit" class="btn btn-default">Comment</button>

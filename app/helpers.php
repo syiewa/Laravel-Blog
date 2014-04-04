@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 function gravatar($email,$size = 40) {
     $email = $email;
     $size = $size;
-    $grav_url = "http://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) )."&s=" . $size;
+    $grav_url = "http://s.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) )."&s=" . $size;
     return $grav_url;
 }
 

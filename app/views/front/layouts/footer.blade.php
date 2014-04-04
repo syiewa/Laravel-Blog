@@ -42,7 +42,7 @@
                     @foreach ($latest_comment as $com)
                     <li>
                         <h5><strong>{{ $com->nama }}</strong> on {{ link_to_route('artikel',$com->artikel->judul,$com->artikel->slug,$attributes = array('class' => 'reply')) }}</h5>
-                        <p>{{ $com->komentar }}</p>
+                        <p>{{ truncate($com->komentar,50) }}</p>
                     </li>
                     @endforeach
                 </ul>

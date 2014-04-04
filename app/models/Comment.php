@@ -22,7 +22,8 @@ class Comment extends Baum\Node {
         'nama' => 'required',
         'url' => 'url',
         'email' => 'required|email',
-        'komentar' => 'required|min:5'
+        'komentar' => 'required|min:5',
+        'recaptcha_response_field' => 'required|recaptcha',
     );
 
     /**

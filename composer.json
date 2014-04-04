@@ -9,7 +9,8 @@
         "davejamesmiller/laravel-breadcrumbs": "~2.2.0",
         "baum/baum": "~1.0",
         "roumen/sitemap": "dev-master",
-        "thujohn/rss": "dev-master"
+        "thujohn/rss": "dev-master",
+        "greggilbert/recaptcha": "dev-master"
     },
     "autoload": {
         "classmap": [

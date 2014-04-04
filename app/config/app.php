@@ -99,6 +99,7 @@ return array(
         'Baum\BaumServiceProvider',
         'Roumen\Sitemap\SitemapServiceProvider',
         'Thujohn\Rss\RssServiceProvider',
+        'Greggilbert\Recaptcha\RecaptchaServiceProvider'
     ),
     /*
       |--------------------------------------------------------------------------
