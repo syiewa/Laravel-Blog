@@ -18,14 +18,14 @@ class PostController extends \BaseController {
         $this->data['arsip'] = $this->post->archives();
         $this->data['links'] = Links::all();
         $this->data['telo'] = Tags::groupBy('slug')->get();
-        $this->data['latest_post'] = $this->post->live()->orderBy('pubdate', 'desc')->paginate(5);
-        $this->data['latest_comment'] = Comment::with('artikel')->orderBy('created_at', 'desc')->select('komentar.*')->paginate(3);
+        $this->data['latest_post'] = $this->post->live()->orderBy('pubdate', 'desc')->take(5)->get();
+        $this->data['latest_comment'] = Comment::with('artikel')->orderBy('created_at', 'desc')->select('komentar.*')->take(3)->get();
         View::share('active', 'article');
     }
 
     public function home() {
         $this->data['artikel'] = $this->post->live()->orderBy('pubdate', 'desc')->paginate(5);
-        $this->data['artikel']->setBaseUrl('/telo2/blog-laravel/');
+        $this->data['artikel']->setBaseUrl('/laravel/blog-laravel/');
         return View::make('front.index', $this->data)->nest('sidebar', 'front.layouts.sidebar', $this->data)->nest('footer', 'front.layouts.footer', $this->data);
     }
 
