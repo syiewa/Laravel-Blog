@@ -99,7 +99,8 @@ return array(
         'Baum\BaumServiceProvider',
         'Roumen\Sitemap\SitemapServiceProvider',
         'Thujohn\Rss\RssServiceProvider',
-        'Greggilbert\Recaptcha\RecaptchaServiceProvider'
+        'Greggilbert\Recaptcha\RecaptchaServiceProvider',
+        'Chumper\Datatable\DatatableServiceProvider',
     ),
     /*
       |--------------------------------------------------------------------------
@@ -164,5 +165,6 @@ return array(
         'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
         'Baum' => 'Baum\BaumServiceProvider',
         'Rss' => 'Thujohn\Rss\RssFacade',
+        'Datatable' => 'Chumper\Datatable\Facades\DatatableFacade',
     ),
 );

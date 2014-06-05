@@ -36,6 +36,24 @@ class PostController extends \BaseController {
         return View::make('admin.posts.index', $this->data);
     }
 
+    public function getDatatable() {
+        return Datatable::collection(Artikel::all())
+                        ->showColumns('judul', 'tgl')
+                        ->addColumn('edit', function($edit) {
+                            return link_to_route('admin.artikel.edit', 'Edit', array($edit->id), array('class' => 'btn btn-info btn-sm'));
+                        })
+                        ->addColumn('delete', function($delete) {
+                            $form = '';
+                            $form .= Form::open(array('method'=> 'DELETE', 'route' => array('admin.artikel.destroy', $delete->id)));
+                            $form .= Form::submit('Delete', array('class' => 'btn btn-danger btn-sm'));
+                            $form .= Form::close();
+                            return $form;
+                        })
+                        ->searchColumns('judul')
+                        ->orderColumns('judul', 'tgl')
+                        ->make();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -7,7 +7,9 @@
         {{ HTML::style('/assets/css/bootstrap-tagsinput.css') }}
         {{ HTML::style('/assets/css/bootstrap-datetimepicker.css') }}
         {{ HTML::style('/assets/css/prettify.css') }}
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">   
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/e9421181788/integration/bootstrap/3/dataTables.bootstrap.css" >    
+        <script type="text/javascript" src="{{ asset('assets/js/jquery.js') }}"></script>
     <body>
         <div class="wrapper">
             <div class="box">
@@ -45,12 +47,14 @@
         {{ HTML::script('/assets/js/bootstrap-tagsinput.min.js') }}
         {{ HTML::script('/assets/js/bootstrap-datetimepicker.js') }}
         {{ HTML::script('/assets/js/prettify.js') }}
+        <script type="text/javascript" src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
+        <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/e9421181788/integration/bootstrap/3/dataTables.bootstrap.js"></script>
         <script type="text/javascript">
-            !function($) {
-                $(function() {
-                    window.prettyPrint && prettyPrint()
-                })
-            }(window.jQuery)
+!function($) {
+    $(function() {
+        window.prettyPrint && prettyPrint()
+    })
+}(window.jQuery)
         </script>
         {{ HTML::script('/assets/js/tinymce/tinymce.min.js') }}
         <script>

@@ -11,6 +11,7 @@
   |
  */
 // Admin Routes
+Route::get('api/users', array('as' => 'api.users', 'uses' => 'PostController@getDatatable'));
 Route::get('admin', function() {
             return Redirect::to('login');
         });

@@ -25,7 +25,9 @@
             <div class="col-sm-9">
                 <p>{{ $com->komentar }}</p>
                 <small>{{ $com->nama }}</small><br />
+                @if (Sentry::check())
                 <a href="#reply-{{$com->id}}" data-toggle="collapse" data-parent="dodol" style="font-size:0.75em">Reply</a>
+                @endif
             </div>
         </div>
         <div class="collapse" id="reply-{{ $com->id }}">
