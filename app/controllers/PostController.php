@@ -36,7 +36,7 @@ class PostController extends \BaseController {
         return View::make('admin.posts.index', $this->data);
     }
 
-    public function getDatatable() {
+    public function getArtikelTabel() {
         return Datatable::collection(Artikel::all())
                         ->showColumns('judul', 'tgl')
                         ->addColumn('edit', function($edit) {

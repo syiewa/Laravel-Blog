@@ -11,7 +11,11 @@
   |
  */
 // Admin Routes
-Route::get('api/users', array('as' => 'api.users', 'uses' => 'PostController@getDatatable'));
+Route::group(array('prefix' => 'api', 'before' => 'check'), function() {
+            // main page for the admin section (app/views/admin/dashboard.blade.php)
+        Route::get('artikel', array('as' => 'api.artikel', 'uses' => 'PostController@getArtikelTabel'));
+        Route::get('comment', array('as' => 'api.comment', 'uses' => 'CommentController@getCommentTabel'));
+        });
 Route::get('admin', function() {
             return Redirect::to('login');
         });

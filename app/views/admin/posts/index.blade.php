@@ -6,7 +6,7 @@
     <p>{{ link_to_route('admin.artikel.create', '+ Add new article','',array('class' => 'btn btn-success btn-sm')) }}</p>
     {{ Datatable::table()
     ->addColumn('Judul','Created At','Edit','Delete')       // these are the column headings to be shown
-    ->setUrl(route('api.users'))   // this is the route where data will be retrieved
+    ->setUrl(route('api.artikel'))   // this is the route where data will be retrieved
     ->render() }}
 </div>
 @stop
