@@ -18,36 +18,6 @@ class CommentController extends \BaseController {
      *
      * @return Response
      */
-    public function getCommentTabel() {
-        return Datatable::collection(Comment::with('artikel')->orderBy('created_at', 'desc')->get())
-                        ->addColumn('author', function($author) {
-                            $string = '';
-                            $string .= '<p><strong>' . $author->nama . '</strong></p>';
-                            $string .= '<p>' . HTML::link($author->url, $author->url) . '</p>';
-                            $string .= '<p>' . $author->email . '</p>';
-                            return $string;
-                        })
-                        ->addColumn('comment', function($comment) {
-                            $string = '';
-                            $string .= '<p>Submitted on ' . date('d M Y h:i:s', strtotime($comment->created_at)) . '</p>';
-                            $string .= '<p>' . $comment->komentar . '</p>';
-                            $string .= '<div>' . Form::open(array('method' => 'DELETE', 'route' => array('admin.comments.destroy', $comment->id)));
-                            $string .= HTML::link('', 'Edit') . ' |';
-                            $string .= link_to_route('admin.comments.store', 'Reply', '', array('class' => 'reply', 'id' => $comment->id . '-' . $comment->post_id));
-                            $string .= ' | ' . Form::submit('Delete', array('class' => 'btn btn-danger btn-xs'));
-                            $string .= Form::close() . '</div>';
-                            return $string;
-                        })
-                        ->addColumn('response',function($response){
-                            $string ='';
-                            $string = '<p>'.$response->artikel->judul.'</p>';
-                            return $string;
-                        })
-                        ->searchColumns('author', 'response','comment')
-                        ->orderColumns('judul', 'tgl')
-                        ->make();
-    }
-    
     public function create() {
         //
     }
